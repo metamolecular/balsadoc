@@ -1,0 +1,42 @@
+<string>            ::= <sequence>?
+<sequence>          ::= <atom> ( <union> | <branch> | <gap> )*
+<union>             ::= <bond>? ( <bridge> | <sequence> )
+<branch>            ::= "(" ( <dot> | <bond> )? <sequence> ")"
+<gap>               ::= <dot> <sequence>
+<atom>              ::= <star> | <shortcut> | <selection> | <bracket>
+<bracket>           ::= "[" <isotope>? <symbol> <parity>?
+                         <virtual_hydrogen>? <charge>? "]"
+<isotope>           ::= <nonzero> <digit>? <digit>?
+<symbol>            ::= <star> | <element> | <selection>
+<virtual_hydrogen>  ::= "H" <nonzero>?
+<charge>            ::= ( "+" | "-" ) <nonzero>?
+<bridge>            ::= <nonzero> | "%" <nonzero> <digit>
+<parity>            ::= "@" "@"?
+<star>              ::= "*"
+<dot>               ::= "."
+<shortcut>          ::= "B" "r"? | "C" "l"? | "N" | "O" | "P" | "S" | "F" | "I"
+<selection>         ::= "b" | "c" | "n" | "o" | "p" | "s"
+<element>           ::= "A" ( "c" | "g" | "l" | "m" | "r" | "s" | "t" | "u" )
+                      | "B" ( "a" | "e" | "i" | "k" | "r" )?
+                      | "C" ( "a" | "d" | "e" | "f" | "l" | "m" | "o"
+                      | "r" | "s" | "u" )?
+                      | "Dy"
+                      | "E" ( "r" | "s" | "u" )
+                      | "F" ( "e" | "m" | "r" )?
+                      | "G" ( "a" | "d" | "e" )
+                      | "H" ( "e" | "f" | "g" | "o" )?
+                      | "I" ( "n" | "r" )?
+                      | "K" "r"?
+                      | "L" ( "a" | "i" | "r" | "u" )
+                      | "M" ( "g" | "n" | "o" )
+                      | "N" ( "a" | "b" | "d" | "e" | "i" | "o" | "p" )?
+                      | "O" "s"?
+                      | "P" ( "a" | "b" | "d" | "m" | "o" | "r" | "t" | "u" )?
+                      | "R" ( "a" | "b" | "e" | "f" | "h" | "n" | "u" )
+                      | "S" ( "b" | "c" | "e" | "i" | "m" | "n" | "r" )?
+                      | "T" ( "a" | "b" | "c" | "e" | "h" | "i" | "l" | "m" )
+                      | "U" | "V" | "W" | "Xe" | "Y" "b"?
+                      | "Z" ( "n" | "r" )
+<bond>              ::= "-" | "=" | "#" | | "/" | "\\"
+<nonzero>           ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+<digit>             ::= "0" | <nonzero>
