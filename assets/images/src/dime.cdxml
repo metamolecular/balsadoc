@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE CDXML SYSTEM "http://www.cambridgesoft.com/xml/cdxml.dtd" >
+<CDXML
+ CreationProgram="ChemDraw 12.0.3.1216"
+ Name="Untitled ACS Document 1996-1"
+ BoundingBox="181.95 341.36 336.07 378.44"
+ WindowPosition="0 0"
+ WindowSize="0 0"
+ WindowIsZoomed="yes"
+ FractionalWidths="yes"
+ InterpretChemically="yes"
+ ShowAtomQuery="yes"
+ ShowAtomStereo="no"
+ ShowAtomEnhancedStereo="yes"
+ ShowAtomNumber="no"
+ ShowBondQuery="yes"
+ ShowBondRxn="yes"
+ ShowBondStereo="no"
+ ShowTerminalCarbonLabels="no"
+ ShowNonTerminalCarbonLabels="no"
+ HideImplicitHydrogens="no"
+ LabelFont="51232"
+ LabelSize="10"
+ LabelFace="96"
+ CaptionFont="51232"
+ CaptionSize="10"
+ HashSpacing="2.5"
+ MarginWidth="1.6"
+ LineWidth="0.6"
+ BoldWidth="2"
+ BondLength="14.4"
+ BondSpacing="18"
+ ChainAngle="120"
+ LabelJustification="Auto"
+ CaptionJustification="Left"
+ AminoAcidTermini="HOH"
+ ShowSequenceTermini="yes"
+ ShowSequenceBonds="yes"
+ PrintMargins="36 36 36 36"
+ MacPrintInfo="0003000002D002D0000000001DFE16F6FF86FF881E7617700367052803FC00020000004800480000000002D80228000100000064000000010003030300000001270F000100010000000000000000000000006800001901900000000000200000000000000000000000000000000000000000000000000000"
+ color="0"
+ bgcolor="1"
+><colortable>
+<color r="1" g="1" b="1"/>
+<color r="0" g="0" b="0"/>
+<color r="1" g="0" b="0"/>
+<color r="1" g="1" b="0"/>
+<color r="0" g="1" b="0"/>
+<color r="0" g="1" b="1"/>
+<color r="0" g="0" b="1"/>
+<color r="1" g="0" b="1"/>
+</colortable><fonttable>
+<font id="51232" charset="x-mac-roman" name="Helvetica"/>
+</fonttable><page
+ id="106"
+ BoundingBox="0 0 540 719.9"
+ HeaderPosition="36"
+ FooterPosition="36"
+ PrintTrimMarks="yes"
+ HeightPages="1"
+ WidthPages="1"
+><group
+ id="70"
+ BoundingBox="181.95 341.36 336.07 378.44"
+><fragment
+ id="71"
+ BoundingBox="181.95 341.36 222.09 378.44"
+><n
+ id="72"
+ p="196.85 353.3"
+ Z="36"
+/><n
+ id="73"
+ p="196.85 367.7"
+ Z="37"
+/><n
+ id="74"
+ p="209.32 374.9"
+ Z="38"
+ AS="N"
+/><n
+ id="75"
+ p="221.79 367.7"
+ Z="39"
+ AS="N"
+/><n
+ id="76"
+ p="221.79 353.3"
+ Z="40"
+ AS="N"
+/><n
+ id="77"
+ p="209.32 346.1"
+ Z="41"
+ AS="N"
+/><n
+ id="78"
+ p="184.43 346.13"
+ Z="60"
+ Element="9"
+ NumHydrogens="0"
+ NeedsClean="yes"
+ AS="N"
+><t
+ p="181.95 349.71"
+ BoundingBox="181.95 341.36 188.05 349.71"
+ LabelJustification="Left"
+><s font="51232" size="9.95" face="96">F</s></t></n><n
+ id="79"
+ p="184.43 374.87"
+ Z="62"
+ Element="9"
+ NumHydrogens="0"
+ NeedsClean="yes"
+ AS="N"
+><t
+ p="181.95 378.44"
+ BoundingBox="181.95 370.1 188.05 378.44"
+ LabelJustification="Left"
+><s font="51232" size="9.95" face="96">F</s></t></n><b
+ id="80"
+ Z="42"
+ B="72"
+ E="73"
+ Order="2"
+ BondCircularOrdering="85 86 87 81"
+/><b
+ id="81"
+ Z="43"
+ B="73"
+ E="74"
+ BS="N"
+/><b
+ id="82"
+ Z="44"
+ B="74"
+ E="75"
+ Order="2"
+ BondCircularOrdering="81 0 0 83"
+/><b
+ id="83"
+ Z="45"
+ B="75"
+ E="76"
+ BS="N"
+/><b
+ id="84"
+ Z="46"
+ B="76"
+ E="77"
+ Order="2"
+ BondCircularOrdering="83 0 0 85"
+/><b
+ id="85"
+ Z="47"
+ B="77"
+ E="72"
+ BS="N"
+/><b
+ id="86"
+ Z="61"
+ B="72"
+ E="78"
+ BS="N"
+/><b
+ id="87"
+ Z="63"
+ B="73"
+ E="79"
+ BS="N"
+/></fragment><fragment
+ id="88"
+ BoundingBox="295.94 341.36 336.07 378.44"
+><n
+ id="89"
+ p="323.3 346.1"
+ Z="48"
+ AS="N"
+/><n
+ id="90"
+ p="310.84 353.3"
+ Z="49"
+/><n
+ id="91"
+ p="310.84 367.7"
+ Z="50"
+/><n
+ id="92"
+ p="323.3 374.9"
+ Z="51"
+ AS="N"
+/><n
+ id="93"
+ p="335.77 367.7"
+ Z="52"
+ AS="N"
+/><n
+ id="94"
+ p="335.77 353.3"
+ Z="53"
+ AS="N"
+/><n
+ id="95"
+ p="298.42 346.13"
+ Z="64"
+ Element="9"
+ NumHydrogens="0"
+ NeedsClean="yes"
+ AS="N"
+><t
+ p="295.94 349.71"
+ BoundingBox="295.94 341.36 302.04 349.71"
+ LabelJustification="Left"
+><s font="51232" size="9.95" face="96">F</s></t></n><n
+ id="96"
+ p="298.42 374.87"
+ Z="66"
+ Element="9"
+ NumHydrogens="0"
+ NeedsClean="yes"
+ AS="N"
+><t
+ p="295.94 378.44"
+ BoundingBox="295.94 370.1 302.04 378.44"
+ LabelJustification="Left"
+><s font="51232" size="9.95" face="96">F</s></t></n><b
+ id="97"
+ Z="54"
+ B="89"
+ E="90"
+ Order="2"
+ BondCircularOrdering="102 0 103 98"
+/><b
+ id="98"
+ Z="55"
+ B="90"
+ E="91"
+ BS="N"
+/><b
+ id="99"
+ Z="56"
+ B="91"
+ E="92"
+ Order="2"
+ BondCircularOrdering="98 104 0 100"
+/><b
+ id="100"
+ Z="57"
+ B="92"
+ E="93"
+ BS="N"
+/><b
+ id="101"
+ Z="58"
+ B="93"
+ E="94"
+ Order="2"
+ BondCircularOrdering="100 0 0 102"
+/><b
+ id="102"
+ Z="59"
+ B="94"
+ E="89"
+ BS="N"
+/><b
+ id="103"
+ Z="65"
+ B="90"
+ E="95"
+ BS="N"
+/><b
+ id="104"
+ Z="67"
+ B="91"
+ E="96"
+ BS="N"
+/></fragment></group></page></CDXML>
