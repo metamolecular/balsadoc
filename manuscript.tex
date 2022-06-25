@@ -313,19 +313,12 @@ A filled DS can be emptied through a two-step process of \textit{deselection}. F
 
 \begin{figure}
     \centering
-    \includegraphics{filler}
-    \caption{Deselection. Unsetting the atomic selected flag with simultaneous promotion of matching bonds.}
-    \label{fig:deselection}
+    \includegraphics[width=\columnwidth]{selection-and-deselection.pdf}
+    \caption{Deselection and Selection. Deselection unsets the atomic selected flag with simultaneous promotion of matching bonds. Selection sets the atomic selected flag with simultaneous demotion of intervening single and double bonds to elided bonds.}
+    \label{fig:selection-and-deselection}
 \end{figure}
 
 The opposite operation can be accomplished with a \textit{selection algorithm}. A selection algorithm selects two or more nodes, thereby adding them to the DS. The only requirement for a selection algorithm is that the resulting DS must have a perfect matching. Depending on the application, other criteria may be applied. For example, a selection algorithm may restrict candidate atoms to those found in cycles. Electron-counting techniques may also be introduced to approximate the chemical concept of \enquote{aromaticity.} Elision of the single bonds to be added to the DS completes the process.
-
-\begin{figure}
-    \centering
-    \includegraphics{filler}
-    \caption{Selection Algorithm. Those atoms with bonds contributing to DIME are added to the delocalization subgraph.}
-    \label{fig:selection}
-\end{figure}
 
 \section*{Valence and Subvalence}
 \label{valence-and-subvalence}
