@@ -429,12 +429,12 @@ The placement of parent, child, grandchild, and great-grandchild will yield one 
 
 To illustrate, consider the placement for (\textit{E})-2-butene. The parent atom, a methyl group, is placed on a vertical axis. Bonds are iterated and a PPB with a direction of \ttt{Down} is found. The child attached to the bond is therefore placed below the parent. Iterating the child's bonds reveals one bond of order two. The atom attached to it is placed to the right of the previous child. Bonds are again iterated, revealing a PPB whose direction is \ttt{Down}. The atom attached to this bond is then placed below its parent. The completed diagram reveals the \textit{anti} conformation.
 
-The same procedure works in reverse when encoding the \ttt{direction} attribute. 2-butene having the \textit{anti} conformation is modeled using a diagram whose left- and right-hand sides point downward and upward, respectively. The parent atom, a primary carbon, is identified. It is bonded to one neighbor through a PPB. To match the diagram, a direction of \ttt{Up} is assigned. The child atom is attached to its own child through a double bond. Finally, the grandchild is attached to its own child through a PPB whose direction is consistent with the diagram. A direction of \ttt{Up} is therefore assigned.
+The same procedure works in reverse when encoding the \ttt{direction} attribute (Figure~\ref{fig:assigning-ppb}). 2-butene having the \textit{anti} conformation is modeled using a diagram whose left- and right-hand sides point downward and upward, respectively. The parent atom, a primary carbon, is identified. It is bonded to one neighbor through a PPB. To match the diagram, a direction of \ttt{Up} is assigned. The child atom is attached to its own child through a double bond. Finally, the grandchild is attached to its own child through a PPB whose direction is consistent with the diagram. A direction of \ttt{Up} is therefore assigned.
 
 \begin{figure}
     \centering
-    \includegraphics{filler}
-    \caption{Assigning partial parity bonds to \textit{anti}-2-butene.}
+    \includegraphics[width=\columnwidth]{assigning-ppbs.pdf}
+    \caption{Assigning partial parity bonds to \textit{cis}-2-butene.}
     \label{fig:assigning-ppb}
 \end{figure}
 
