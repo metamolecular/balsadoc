@@ -487,22 +487,22 @@ Cyclic conjugated polyenes present special challenges to the use of PPBs, as exe
 
 Balsa limits configuration to the special case of an atom with exactly four substituents placed at the vertices of a tetrahedron. Here, \enquote{substituent} means an atomic neighbor or virtual hydrogen. Lone electron pairs are not considered to be substituents.
 
-The configuration about an atom can specified through its \ttt{parity} attribute. This attribute, together with a general convention, determine the relative three-dimensional positioning of substituents about a central atom. First, the parent of the central atom is identified. Then the frame of reference is shifted by sighting down the bond from the central atom's parent to the central atom. An equilateral triangle is then inscribed about the central atom. The bonds from the central atom are then iterated in order. If the parity of the central atom equals \ttt{Clockwise}, the child atoms attached through each bond are placed around the triangle in clockwise order. Otherwise the children are arranged in counterclockwise order.
+The configuration about an atom can specified through its \ttt{parity} attribute. This attribute, together with a general convention, determine the relative three-dimensional positioning of substituents about a central atom (Figure~\ref{fig:atom-parity}). First, the parent of the central atom is identified. Then the frame of reference is shifted by sighting down the bond from the central atom's parent to the central atom. An equilateral triangle is then inscribed about the central atom. The bonds from the central atom are then iterated in order. If the parity of the central atom equals \ttt{Clockwise}, the child atoms attached through each bond are placed around the triangle in clockwise order. Otherwise the children are arranged in counterclockwise order.
 
 \begin{figure}
     \centering
-    \includegraphics{filler}
-    \caption{Configurational descriptor. Configuration is either encoded or reconstructed using the same model.}
-    \label{fig:configurational-descriptor}
+    \includegraphics[width=\columnwidth]{atom-parity.pdf}
+    \caption{Atom parity. Four substituents surround a central atom with non-default atom parity (cyan). Sighting from the parent to the central atom, its children (a, b, and c) follow either a clockwise or counterclockwise pattern when iterated in order.}
+    \label{fig:atom-parity}
 \end{figure}
 
-The procedure is modified for atoms bearing one virtual hydrogen and three atomic substituents. The implied bond to the virtual hydrogen is considered to precede the others. Sighting down this bond, the central atom's parent is placed on the triangle at an arbitrary position. Children are then iterated counterclockwise or clockwise relative to it.
+The convention is modified for atoms bearing one virtual hydrogen and three atomic substituents (Figure~\ref{fig:atom-parity-suppressed-hydrogen}). The implied bond to the virtual hydrogen is considered to precede the others. Sighting down this bond, the central atom's parent is placed on the triangle at an arbitrary position. Children are then iterated counterclockwise or clockwise relative to it.
 
 \begin{figure}
     \centering
-    \includegraphics{filler}
-    \caption{Configurational descriptor with one virtual hydrogen. In this case, hydrogen assumes the role of the first substituent.}
-    \label{fig:configurational-descriptor-vh}
+    \includegraphics[width=\columnwidth]{atom-parity-suppressed-hydrogen.pdf}
+    \caption{Atom parity with one suppressed hydrogen. The central atom (cyan) has a suppressed hydrogen. In this case, the root atom (r) is regarded as the first child and analysis continues as before.}
+    \label{fig:atom-parity-suppressed-hydrogen}
 \end{figure}
 
 One additional modification applies to a central atom without a parent. The frame of reference is shifted to sight along the direction of the first child. The remaining children are then placed around the triangle in either counterclockwise or clockwise order according to the value of the central atom's \ttt{parity} attribute. If a central root atom bears a virtual hydrogen, it is considered to be the first child.
