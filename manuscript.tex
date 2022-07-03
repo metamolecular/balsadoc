@@ -698,7 +698,7 @@ The presence of a branch adds some nuances over a union. The leading open parent
     \label{fig:stack}
 \end{figure}
 
-Additional modifications allow bridge bonds to be tested for \textit{compatibility}. Compatibility is tested by comparing the attributes of each bridge bond. This test has three parts:
+Additional modifications allow bridge bonds to be tested for \textit{compatibility} (Figure~\ref{fig:bridge-bond-compatibility}). Compatibility is tested by comparing the attributes of each bridge bond. This test has three parts:
 
 \begin{enumerate}
     \item An elided bond is compatible with any other bond.
@@ -706,13 +706,13 @@ Additional modifications allow bridge bonds to be tested for \textit{compatibili
     \item A bond with default direction is only compatible with an elided bond or a bond of identical order and default direction.
 \end{enumerate}
 
-A workflow modification allows bridge bonds to be compared for compatibility (Figure~\ref{fig:testing-bridge-bond-compatibility}). A 100-element array is used to maintain state. The first occurrence of a bridge causes the bridge bond's attributes to be copied to the array at the bridge index. The second occurrence of a bridge causes the entry to be removed. The attributes stored in the entry are then compared with those of the current bridge bond. If the two sets of attributes are incompatible, an error must be reported.
+A workflow modification allows bridge bonds to be compared for compatibility. A 100-element array is used to maintain state. The first occurrence of a bridge causes the bridge bond's attributes to be copied to the array at the bridge index. The second occurrence of a bridge causes the entry to be removed. The attributes stored in the entry are then compared with those of the current bridge bond. If the two sets of attributes are incompatible, an error must be reported.
 
 \begin{figure}
     \centering
-    \includegraphics{filler}
-    \caption{Testing bridge bond compatibility.}
-    \label{fig:testing-bridge-bond-compatibility}
+    \includegraphics[width=\columnwidth]{brdige-bond-compatibility.pdf}
+    \caption{Bridge bond compatibility. Two bonds with the types indicated along the row and column headings are either compatible (green check marks) or incompatible (red X).}
+    \label{fig:bridge-bond-compatibility}
 \end{figure}
 
 An elided bond is compatible with any other bond (Rule 1). Unless both bridge bonds are elided, however, the presence of compatible but unmatched bridge bonds could interfere with atom-centered computations. One solution is to set the attributes of the elided bridge bond explicitly. The array used for compatibility testing can be re-used to set the attributes of an unmatched bridge bond pair.
