@@ -507,13 +507,13 @@ The convention is modified for atoms bearing one virtual hydrogen and three atom
 
 One additional modification applies to a central atom without a parent. The frame of reference is shifted to sight along the direction of the first child. The remaining children are then placed around the triangle in either counterclockwise or clockwise order according to the value of the central atom's \ttt{parity} attribute. If a central root atom bears a virtual hydrogen, it is considered to be the first child.
 
-A central atom whose parity attribute assumes a non-default value must have either four bonds if no virtual hydrogens are present, or three bonds if one virtual hydrogen is present. Some topologies might appear to be similar enough that the \ttt{parity} attribute can be used, but they all must be reported as errors. Examples include the central atom of allenes and other odd cumulenes, and the sulfur atom of sulfoxides where the lone pair is misconstrued as a substituent.
+A central atom whose parity attribute assumes a non-default value must have either four bonds if no virtual hydrogens are present, or three bonds if one virtual hydrogen is present. Some topologies might appear to be similar enough that the \ttt{parity} attribute can be used, but they all must be reported as errors (Figure~\ref{fig:invalid-atom-parity}). Examples include the central atom of allenes and other odd cumulenes, and the sulfur atom of sulfoxides where the lone pair is misconstrued as a substituent.
 
 \begin{figure}
     \centering
-    \includegraphics{filler}
-    \caption{Invalid uses of configurational descriptors. Only configuration about four-coordinate tetrahedral atoms is supported.}
-    \label{fig:invalid-configurational-descriptors}
+    \includegraphics[width=\columnwidth]{invalid-atom-parity.pdf}
+    \caption{Invalid uses of atom parity. Only configuration about tetrasubstituted, tetrahedral atoms is supported. The marked atoms (cyan background) lack four substituents, tetrahedral geometry, or both. Assigning a non-default atom parity to any of them would be an error.}
+    \label{fig:invalid-atom-parity}
 \end{figure}
 
 Configurational descriptors may be assigned without regard to bond order. In other words, single, double, triple, and PPBs can all be present. The only requirement that must be satisfied by a central atom is an atomic neighbor count of four, or three when a virtual hydrogen is present.
