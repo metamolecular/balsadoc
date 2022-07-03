@@ -689,13 +689,13 @@ Balsa strings are read one character at a time starting at the leftmost characte
 
 Readers that capture atom-atom connectivity will typically maintain a reference to a \textit{hub}. A hub is an atom to which the next node will be connected. On reading the first complete \ttt{<atom>} non-terminal, the corresponding atom is constructed and set as the hub. Subsequently processing a complete \ttt{<union>}, \ttt{<branch>}, or \ttt{<gap>} non-terminal triggers three changes: (1) a child node is constructed; (2) the child is connected to the current hub, unless a \ttt{<dot>} non-terminal intervenes; and (3) the hub is replaced with the child node if it is an atom.
 
-The presence of a branch adds some nuances over a union. The leading open parenthesis terminal (\enquote{(}) signifies that the current hub will later be re-exposed. This operation can be supported by a stack. At the start of a branch, the current hub is pushed to the stack. At the end of the branch, the stack is popped and its top value is assigned as the new hub.
+The presence of a branch adds some nuances over a union. The leading open parenthesis terminal (\enquote{(}) signifies that the current hub will later be re-exposed. This operation can be supported by a stack (Figure~\ref{fig:stack}). At the start of a branch, the current hub is pushed to the stack. At the end of the branch, the stack is popped and its top value is assigned as the new hub.
 
 \begin{figure}
     \centering
-    \includegraphics{filler}
+    \includegraphics[width=\columnwidth]{stack.pdf}
     \caption{Stack for branches.}
-    \label{fig:branches-stack}
+    \label{fig:stack}
 \end{figure}
 
 Additional modifications allow bridge bonds to be tested for \textit{compatibility}. Compatibility is tested by comparing the attributes of each bridge bond. This test has three parts:
