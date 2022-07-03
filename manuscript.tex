@@ -518,21 +518,20 @@ A central atom whose parity attribute assumes a non-default value must have eith
 
 Configurational descriptors may be assigned without regard to bond order. In other words, single, double, triple, and PPBs can all be present. The only requirement that must be satisfied by a central atom is an atomic neighbor count of four, or three when a virtual hydrogen is present.
 
-It is sometimes useful to manipulate a configuration in a way that preserves the relative three-dimensional positioning of neighbor atoms. This process is called \textit{transformation}. Five operations suffice to transform any configuration into any other:
+It is sometimes useful to manipulate a configuration in a way that preserves the relative three-dimensional positioning of neighbor atoms. This process is called \textit{transformation}. Four operations suffice to transform any configuration into any other (Figure~\ref{fig:configurational-transformations}):
 
 \begin{itemize}
-    \item{Virtualize. Replaces an atomic hydrogen neighbor with a virtual hydrogen. If the deleted bond was first in the bond ordering, toggle the configurational descriptor.}
-    \item{Reify. Replaces a virtual hydrogen with an atomic hydrogen neighbor. The bond ordering must place the new neighbor in the second position.}
-    \item{Swap. Exchanges any two bonds ordered second or higher while simultaneously toggling the configurational descriptor.}
-    \item{Slide Left. Re-orders a bond from the first position to the second position. Disabled if the central atom carries a virtual hydrogen.}
-    \item{Slide Right. Re-orders a bond from the second position to the first position. Disabled if the central atom carries a virtual hydrogen.}
+    \item{Virtualize. Replaces an atomic first hydrogen child with a virtual hydrogen.}
+    \item{Reify. Replaces a virtual hydrogen with an atomic hydrogen first child.}
+    \item{Swap Children. Exchanges any two children while simultaneously toggling the configurational descriptor.}
+    \item{Swap Parent. Exchanges parent for first child. Disabled if the central atom carries a virtual hydrogen.}
 \end{itemize}
 
 \begin{figure}
     \centering
-    \includegraphics{filler}
+    \includegraphics[width=\columnwidth]{configurational-transformations.pdf}
     \caption{Configurational Transformations.}
-    \label{fig:iconfigurational-transformations}
+    \label{fig:configurational-transformations}
 \end{figure}
 
 Not all tetracoordinate atoms will be \textit{stereocenters}. A stereocenter is an atom whose \enquote{ligand permutation produces stereoisomers,} as defined by Mislow and Siegel~\cite{mislow:1984}. The presence of four bonds around a central atom is therefore a necessary, but insufficient condition. Molecular topology can result in permutation that does not yield stereoisomers. The assignment of non-default parities to such atoms should therefore be avoided.
