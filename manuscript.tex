@@ -748,12 +748,12 @@ If a selected atom bears a non-zero \ttt{charge} attribute, subvalence is comput
 
 \begin{figure}
     \centering
-    \includegraphics{filler}
-    \caption{Gratuitous selection.}
+    \includegraphics[width=\columnwidth]{gratuitous-selection.pdf}
+    \caption{Gratuitous selection. These heteroatoms are selected but don't need to be because subvalence is zero in every case. When such atoms are selected, they must be pruned before processing the DS.}
     \label{fig:gratuitous-selection}
 \end{figure}
 
-Pruning becomes necessary in cases of gratuitous atomic selection. This occurs whenever style, tradition, or convenience overrides necessity. Consider a string representing furan in which all atoms are selected (e.g., \enquote{c1ccco1}). Selecting any atom is unnecessary because furan does not exhibit DIME. This applies doubly to the the oxygen atom because it lacks an unpaired electron and so will never lead to DIME. It is nevertheless convenient to select the carbon atoms because all bonds can then be elided. The resulting representation (e.g., \enquote{c1cccO1}) leads to a delocalization subgraph with a perfect matching and hydrogen counts consistent with the original encoding.
+Pruning becomes necessary in cases of \textit{gratuitous selection}. Gratuitous selection is the selection of an atom whose subvalence is zero and which therefore can never become part of a DS. This can happen when style, tradition, or convenience override symmetry concerns. Consider a string representing furan in which all atoms are selected (e.g., \enquote{c1ccco1}). Selecting any atom is unnecessary because furan does not exhibit DIME. This applies doubly to the the oxygen atom because it lacks an unpaired electron and so will never lead to DIME. It is nevertheless convenient to select the carbon atoms because all bonds can then be elided. The resulting representation (e.g., \enquote{c1cccO1}) leads to a delocalization subgraph with a perfect matching and hydrogen counts consistent with the original encoding.
 
 Writers are encouraged, but not required, to avoid gratuitous atom selection. Readers, however, must always be prepared to prune.
 
