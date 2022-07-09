@@ -761,7 +761,7 @@ Writers are encouraged, but not required, to avoid gratuitous atom selection. Re
 
 Whereas a reader transforms a string into a data structure, the goal of a writer is the opposite: to transform a data structure into a valid string. This data structure will most commonly take the form of a molecular graph or tree, but other forms are possible. For practical reasons, the input data structure is likely to resemble the output from a reader. Such an arrangement makes it possible to encode and decode strings with minimal intermediate translation.
 
-Regardless of the form taken by the input data structure, it must be traversable in \textit{depth-first} order. A depth-first traversal operates over a set of nodes bound by a set of connectivity relationships, which are typically edges. Traversal proceeds by successively replacing each node as the center of focus, or root. Each new root is chosen from the untraversed neighbors of the current root. Eventually all nodes are processed, ending the traversal.
+Regardless of the form taken by the input data structure, it must be traversable in \textit{depth-first} order (Figure~\ref{fig:depth-first-traversal}). A depth-first traversal operates over a set of nodes bound by a set of connectivity relationships, which are typically edges. Traversal proceeds by successively replacing each node as the center of focus, or root. Each new root is chosen from the untraversed neighbors of the current root. Eventually all nodes are processed, ending the traversal.
 
 \begin{figure}
     \centering
@@ -772,13 +772,13 @@ Regardless of the form taken by the input data structure, it must be traversable
 
 A writer intercepts the depth-first traversal of an input data structure to write an output string compatible with the formal grammar. There are no requirements around style. For example, it's equally valid to represent the carbon atom of methane using either implicit or virtual hydrogens (e.g., \enquote{C} or \enquote{[CH4]}). Single bonds may be elided or not, all other things being equal. Similarly, the DS may or may not be empty. Although an organization may seek to standardize certain styles of string output, any syntactically and semantically valid string must be considered valid by a reader.
 
-The presence of branches within an input data structure is encoded via the \ttt{<branch>} non-terminal. A useful tool for this purpose is a \ttt{stack}. A stack is a data structure that allows items to be added individually and removed (\enquote{popped}) in the reverse order of addition. A writer begins by pushing the current branch onto the stack and extending it. When a new branch is encountered, it is pushed to the stack and extended. When the branch terminates, the current branch is popped and its contents are appended to the stack's new top item.
+The presence of branches within an input data structure is encoded via the \ttt{<branch>} non-terminal. A useful tool for this purpose is a \ttt{stack} (Figure~\ref{fig:stack-for-writer}). A stack is a data structure that allows items to be added individually and removed (\enquote{popped}) in the reverse order of addition. A writer begins by pushing the current branch onto the stack and extending it. When a new branch is encountered, it is pushed to the stack and extended. When the branch terminates, the current branch is popped and its contents are appended to the stack's new top item.
 
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{stack-for-writer.pdf}
     \caption{Stack for writing strings. Traversal of the root atom (C) creates a new entry. Encountering the start of a branch (N, S) creates a new entry preceded by an open parenthesis symbol (\ttt{(}). Extending a branch writes to the top stack item (I, F, O). Closing a branch pops the top item then concatenates it, together with a close parenthesis symbol (\ttt{)}), to the new top item.}
-    \label{fig:branch-stack}
+    \label{fig:stack-for-writer}
 \end{figure}
 
 Writers should consider the non-negligible costs of atom selection. Algorithms for selection are likely to involve the perceptions of cycles, and could exhibit superlinear time complexity. Often, a reader must perform a global deselection to arrive at a localized valence bond representation, which at the very least requires pruning and a maximal matching procedure. In other words, atom selection imposes two sets of costs: one on the writer and the other on every subsequent reader forever into the future.
@@ -795,15 +795,6 @@ The first difference is the simplest to account for: atoms in a molecular tree h
 The second difference is that molecular trees have gaps, but molecular graphs do not. An edge may or may not represent a bonding relationship. Transformation from tree to graph must recognize the presence of gaps and place no corresponding bond. Gaps can occur at any outbound edge, even those within branches. Transformation from graph to tree must locate an appropriate pair of atoms to host the gap. A convenient pair would be the last atom of the first connected component and the first atom of the next connected component, but other choices are possible.
 
 The third difference leads to the most complex reconciliation: molecular trees have bridges but molecular graphs do not. When transforming tree to graph, the two sides of a bridge bond must be identified, spliced, and added to the graph. When transforming graph to tree, a ring closure bond must be detected and split into a pair compatible bridge bonds. Compounding the problem in either sense of conversion is index reuse. Transformation from graph to tree will reuse gap indexes to avoid overflow. Transformation from tree to graph must account for the possibility that gap index reuse has occurred.
-
-Transformation of tree to graph can be aided by a \textit{fastener} (Figure~\ref{fig:fastener}). A fastener is a key/value store whose keys are bridge indexes and whose values are a tuple composed of: (1) the identifier of the last atom added to the graph; and (2) the bridge bond attributes \ttt{order}, \ttt{elided}, and \ttt{direction}. Odd insertions (first, third, etc.) associate the bridge index with the tuple and return \ttt{None}. Even insertions (second, fourth, etc.) remove the previously-associated tuple and return it. A fastener is paired with a depth-first traversal of the tree to be transformed. On encountering a bridge, an insertion is made. If the return value is a tuple, it is used together with the current gap bond attributes and atom identifier to create a bond and place it within the molecular graph.
-
-\begin{figure}
-    \centering
-    \includegraphics{filler}
-    \caption{Fastener. Use of a fastener with the depth-first traversal of a molecular tree aids transformation to a molecular graph.}
-    \label{fig:fastener}
-\end{figure}
 
 Transformation of graph to tree can be aided by a \textit{pool} (Figure~\ref{fig:pool}). A pool issues a bridge index given an unordered pairing of atomic indexes. The gap index will not be re-issued until the pool receives the same pairing. A pool is used during a depth-first traversal of a molecular graph, where the presence of a cycle is indicated by the discovery of an index that has already been traversed. On encountering a cycle, a bridge index is requested from the pool by submitting the source and target atomic indexes as an unordered pair. The bridge index is then used to construct the first half of the gap bond. Later, the same bond will be traversed in the opposite direction. When it is, a gap index is requested from the pool by re-submitting a source and target index pairing. Doing so yields the bridge index, while simultaneously freeing it for later use.
 
