@@ -776,8 +776,8 @@ The presence of branches within an input data structure is encoded via the \ttt{
 
 \begin{figure}
     \centering
-    \includegraphics{filler}
-    \caption{Stack for branch assembly.}
+    \includegraphics[width=\columnwidth]{stack-for-writer.pdf}
+    \caption{Stack for writing strings. Traversal of the root atom (C) creates a new entry. Encountering the start of a branch (N, S) creates a new entry preceded by an open parenthesis symbol (\ttt{(}). Extending a branch writes to the top stack item (I, F, O). Closing a branch pops the top item then concatenates it, together with a close parenthesis symbol (\ttt{)}), to the new top item.}
     \label{fig:branch-stack}
 \end{figure}
 
