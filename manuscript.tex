@@ -774,12 +774,52 @@ A writer intercepts the depth-first traversal of an input data structure to writ
 
 The presence of branches within an input data structure is encoded via the \ttt{<branch>} non-terminal. A useful tool for this purpose is a stack (Figure~\ref{fig:stack-for-writer}). A writer begins by pushing the current branch onto the stack and extending it. When a new branch is encountered, it is pushed to the stack and extended. When the branch terminates, the current branch is popped and its contents are appended to the stack's new top item.
 
-\begin{figure}
+% \begin{table}
+%     \caption{Atomic Attributes.}
+%     \centering
+%     \begin{tabular}{l L l l}
+%         \hline
+%         Attribute & Description & Type & Default \\
+%         \hline
+%         \ttt{element} & Elemental symbol & \ttt{\{Element\}} & \ttt{None} \\
+%         \ttt{isotope} & Mass number & \ttt{\{1..1000\}} & \ttt{None} \\
+%         \ttt{hydrogens} & Hydrogen count & \ttt{Implicit}, \ttt{0..10} & 0 \\
+%         \ttt{charge} & Formal charge & \ttt{-9..10} & 0 \\
+%         \ttt{selected} & Selection status & \ttt{?} & \ttt{false} \\
+%         \ttt{parity} & Configuration & \ttt{\{AtomParity\}} & \ttt{None} \\
+%         \ttt{edges} & Edges directed toward child nodes & \ttt{[Edge]} & \ttt{[]} \\
+%         \hline
+%     \end{tabular}
+%     \label{table:atomic-attributes}
+%     \end{table}
+
+\begin{table}
+    \caption{Writing a string with the aid of a stack.}
     \centering
-    \includegraphics[width=\columnwidth]{stack-for-writer.pdf}
-    \caption{Stack for writing strings. Traversal of the root atom (C) creates a new entry. Encountering the start of a branch (N, S) creates a new entry preceded by an open parenthesis symbol (\ttt{(}). Extending a branch writes to the top stack item (I, F, O). Closing a branch pops the top item then concatenates it, together with a close parenthesis symbol (\ttt{)}), to the new top item.}
-    \label{fig:stack-for-writer}
-\end{figure}
+    \begin{tabular}{c}
+        \includegraphics[width=\columnwidth]{tree-for-stack.pdf}
+    \end{tabular}
+
+    \bigskip
+
+    \begin{tabular}{c l l}
+        \hline
+        Step & Action & Stack \\
+        \hline
+        1  & root C   & \enquote{C}                             \\
+        2  & open     & \enquote{C},\enquote{(}                 \\
+        3  & extend N & \enquote{C},\enquote{(N}                \\
+        4  & open     & \enquote{C},\enquote{(N},\enquote{(}    \\
+        5  & extend S & \enquote{C},\enquote{(N},\enquote{(S}   \\
+        6  & extend I & \enquote{C},\enquote{(N},\enquote{(SI}  \\
+        7  & close    & \enquote{C},\enquote{(N(SI)}            \\
+        8  & extend F & \enquote{C},\enquote{(N(SI)F}           \\
+        9  & close    & \enquote{C(NSI)F)}                      \\
+        10 & extend O & \enquote{C(NSI)F)O}                     \\
+        \hline
+    \end{tabular}
+    \label{table:stack-for-writing-string}
+\end{table}
 
 Writers should consider the non-negligible costs of atom selection. Algorithms for selection are likely to involve the perceptions of cycles, and could exhibit superlinear time complexity. Often, a reader must perform a global deselection to arrive at a localized valence bond representation, which at the very least requires pruning and a maximal matching procedure. In other words, atom selection imposes two sets of costs: one on the writer and the other on every subsequent reader forever into the future.
 
