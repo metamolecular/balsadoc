@@ -689,14 +689,25 @@ Balsa strings are read one character at a time starting at the leftmost characte
 
 Readers that capture atom-atom connectivity will typically maintain a reference to a \textit{hub}. A hub is an atom to which the next node will be connected. On reading the first complete \ttt{<atom>} non-terminal, the corresponding atom is constructed and set as the hub. Subsequently processing a complete \ttt{<union>}, \ttt{<branch>}, or \ttt{<gap>} non-terminal triggers three changes: (1) a child node is constructed; (2) the child is connected to the current hub, unless a \ttt{<dot>} non-terminal intervenes; and (3) the hub is replaced with the child node if it is an atom.
 
-The presence of a branch adds some nuances over a union. The leading open parenthesis terminal (\enquote{(}) signifies that the current hub will later be re-exposed. This operation can be supported by a \textit{stack} (Figure~\ref{fig:stack}). A stack is a data structure that allows items to be added individually and removed (\enquote{popped}) in the reverse order of addition. At the start of a branch, the current hub is pushed to the stack. At the end of the branch, the stack is popped and its top value is assigned as the new hub.
+The presence of a branch adds some nuances over a union. The leading open parenthesis terminal (\enquote{(}) signifies that the current hub will later be re-exposed. This operation can be supported by a \textit{stack} (Table~\ref{table:stack-for-branches}). A stack is a data structure that allows items to be added individually and removed (\enquote{popped}) in the reverse order of addition. At the start of a branch, the current hub is pushed to the stack. At the end of the branch, the stack is popped and its top value is assigned as the new hub.
 
-\begin{figure}
+\begin{table}
+    \caption{Stack and hub for reading the string \enquote{C(N*)O}.}
     \centering
-    \includegraphics[width=\columnwidth]{stack.pdf}
-    \caption{Stack for branches.}
-    \label{fig:stack}
-\end{figure}
+    \begin{tabular}{c c l c c}
+        \hline
+        Step & Character   & Action                          & Hub & Stack \\
+        \hline
+        1    & \enquote{C} & create atom                     & C   &       \\
+        2    & \enquote{(} & push next atom                  & C   &       \\
+        3    & \enquote{N} & create atom, push atom          & N   &  N    \\
+        4    & \enquote{*} & create atom                     & *   &  N    \\
+        5    & \enquote{)} & pop atom, update hub            & N   &       \\
+        6    & \enquote{O} & create atom                     & O   &       \\
+        \hline
+    \end{tabular}
+    \label{table:stack-for-branches}
+\end{table}
 
 Additional modifications allow bridge bonds to be tested for \textit{compatibility} (Figure~\ref{fig:bridge-bond-compatibility}). Compatibility is tested by comparing the attributes of each bridge bond. This test has three parts:
 
@@ -772,26 +783,7 @@ Regardless of the form taken by the input data structure, it must be traversable
 
 A writer intercepts the depth-first traversal of an input data structure to write an output string compatible with the formal grammar. There are no requirements around style. For example, it's equally valid to represent the carbon atom of methane using either implicit or virtual hydrogens (e.g., \enquote{C} or \enquote{[CH4]}). Single bonds may be elided or not, all other things being equal. Similarly, the DS may or may not be empty. Although an organization may seek to standardize certain styles of string output, any syntactically and semantically valid string must be considered valid by a reader.
 
-The presence of branches within an input data structure is encoded via the \ttt{<branch>} non-terminal. A useful tool for this purpose is a stack (Figure~\ref{fig:stack-for-writer}). A writer begins by pushing the current branch onto the stack and extending it. When a new branch is encountered, it is pushed to the stack and extended. When the branch terminates, the current branch is popped and its contents are appended to the stack's new top item.
-
-% \begin{table}
-%     \caption{Atomic Attributes.}
-%     \centering
-%     \begin{tabular}{l L l l}
-%         \hline
-%         Attribute & Description & Type & Default \\
-%         \hline
-%         \ttt{element} & Elemental symbol & \ttt{\{Element\}} & \ttt{None} \\
-%         \ttt{isotope} & Mass number & \ttt{\{1..1000\}} & \ttt{None} \\
-%         \ttt{hydrogens} & Hydrogen count & \ttt{Implicit}, \ttt{0..10} & 0 \\
-%         \ttt{charge} & Formal charge & \ttt{-9..10} & 0 \\
-%         \ttt{selected} & Selection status & \ttt{?} & \ttt{false} \\
-%         \ttt{parity} & Configuration & \ttt{\{AtomParity\}} & \ttt{None} \\
-%         \ttt{edges} & Edges directed toward child nodes & \ttt{[Edge]} & \ttt{[]} \\
-%         \hline
-%     \end{tabular}
-%     \label{table:atomic-attributes}
-%     \end{table}
+The presence of branches within an input data structure is encoded via the \ttt{<branch>} non-terminal. A useful tool for this purpose is a stack (Table~\ref{table:stack-for-writing-string}). A writer begins by pushing the current branch onto the stack and extending it. When a new branch is encountered, it is pushed to the stack and extended. When the branch terminates, the current branch is popped and its contents are appended to the stack's new top item.
 
 \begin{table}
     \caption{Writing a string with the aid of a stack.}
