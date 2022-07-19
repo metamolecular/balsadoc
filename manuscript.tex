@@ -828,14 +828,37 @@ The second difference is that molecular trees have gaps, but molecular graphs do
 
 The third difference leads to the most complex reconciliation: molecular trees have bridges but molecular graphs do not. When transforming tree to graph, the two sides of a bridge bond must be identified, spliced, and added to the graph. When transforming graph to tree, a ring closure bond must be detected and split into a pair compatible bridge bonds. Compounding the problem in either sense of conversion is index reuse. Transformation from graph to tree will reuse gap indexes to avoid overflow. Transformation from tree to graph must account for the possibility that gap index reuse has occurred.
 
-Transformation of graph to tree can be aided by a \textit{pool} (Figure~\ref{fig:pool}). A pool issues a bridge index given an unordered pairing of atomic identifiers. The bridge index will not be re-issued until the pool receives the same pairing again. A pool is used during a depth-first traversal of a molecular graph, where the presence of a cycle is indicated by the discovery of an index that has already been traversed. On encountering a cycle, a bridge index is requested from the pool by submitting the source and target atomic indexes as an unordered pair. The bridge index is then used to construct the first half of the gap bond. Later, the same bond will be traversed in the opposite direction. When it is, a gap index is requested from the pool by re-submitting a source and target index pairing. Doing so yields the bridge index, while simultaneously freeing it for later use.
+Transformation of graph to tree can be aided by a \textit{pool} (Tabe~\ref{table:pool}). A pool issues a bridge index given an unordered pairing of atomic identifiers. The bridge index will not be re-issued until the pool receives the same pairing again. A pool is used during a depth-first traversal of a molecular graph, where the presence of a cycle is indicated by the discovery of an index that has already been traversed. On encountering a cycle, a bridge index is requested from the pool by submitting the source and target atomic indexes as an unordered pair. The bridge index is then used to construct the first half of the gap bond. Later, the same bond will be traversed in the opposite direction. When it is, a gap index is requested from the pool by re-submitting a source and target index pairing. Doing so yields the bridge index, while simultaneously freeing it for later use.
 
-\begin{figure}
+\begin{table}
+    \caption{A pool manages bridge indexes during the transformation of a molecular graph.}
     \centering
-    \includegraphics[width=\columnwidth]{deck.pdf}
-    \caption{Pool. Used within a depth-first traversal to manage bridge indexes when transforming a molecular graph (top) to a molecular tree. Each cycle-closure edge is traversed twice: once in the forward direction and later in the reverse direction. The first hit reserves the index. The second hit releases it. In this way index reuse is supported.}
-    \label{fig:pool}
-\end{figure}
+    \begin{tabular}{c}
+        \includegraphics[width=\columnwidth]{pool.pdf}
+    \end{tabular}
+
+    \bigskip
+
+    \begin{tabular}{c l l l l}
+        \hline
+        Step & Edge  & Hit & Return Value & Action    \\
+        \hline
+        1    & (0,1) & No  & None         &           \\
+        2    & (1,2) & No  & None         &           \\
+        3    & (2,3) & No  & None         &           \\
+        4    & (3,0) & Yes & 1            & Reserve 1 \\
+        5    & (3,1) & Yes & 2            & Reserve 2 \\
+        6    & (1,3) & Yes & 2            & Release 1 \\
+        7    & (1,4) & No  & None         &           \\
+        8    & (4,5) & No  & None         &           \\
+        9    & (5,6) & No  & None         &           \\
+        10   & (6,4) & Yes & 2            & Reserve 2 \\
+        11   & (4,6) & Yes & 2            & Release 2 \\
+        12   & (0,3) & Yes & 1            & Release 1 \\
+        \hline
+    \end{tabular}
+    \label{table:pool}
+\end{table}
 
 \section*{Compatibility}
 
