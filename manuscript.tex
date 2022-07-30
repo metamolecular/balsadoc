@@ -51,15 +51,13 @@ The very notion of a SMILES standard may not be realistic at this point. Today a
 
 This paper attempts to solve these problems with Balsa, a fully-specified language designed as a subset of SMILES. The following sections present Balsa from three perspectives: as a compact system for molecular representation; as a text-based language; and as a specification for software capable of the lossless conveyance of chemical structure information across organizational and temporal boundaries.
 
-\section*{Goals and Overall Design}
+\section*{Goals}
 
 Balsa's main goal is to solve the \textit{molecular serialization} problem. Serialization refers to the process of translating a data structure into a format that can be transmitted over a communication channel for later reconstruction. This allows general-purpose devices and networks to convey complex pieces of domain-specific information. Receiver and recipient may be separated by time, space, or both. Molecular serialization extends the concept of serialization to molecular structure. Examples of molecular serialization formats other than SMILES include Chemical Markup Language (CML)~\cite{murray-rust:2011}, CDXML~\cite{cdxml}, and CTfile (\enquote{molfile})~\cite{ctfileFormats}.
 
 A secondary goal is brevity. Molecules should be expressable using only a few characters for each atom and either zero or one character for each bond. Brevity benefits humans who manually encode chemical structures within interactive line-driven interfaces such as those found in terminal sessions and notebooks. Brevity also benefits computers, for which compact molecular representation can improve the performance when storage, bandwidth, or processor cycles are limiting factors. Figure~\ref{fig:representative-examples} presents some simple chemical structures together with their Balsa serializations.
 
 Molecular serialization schemes need to balance generality against complexity. As the diversity of the molecules that can be encoded increases, so do the rules needed to encode them and the software needed to interpret the rules. For this reason, Balsa's capabilities are directed at that region of chemical space populated by small organic molecules. Although Balsa can be used to represent a variety of other kinds of molecules, doing so in general risks data loss or corruption.
-
-Balsa's rules can be divided into two broad categories: \textit{syntax} and \textit{semantics}. Syntax defines the set of valid strings for a language, whereas semantics determine the meaning these strings. Balsa semantic are complex due to the brevity of its syntax and the inherently complex nature of molecular representation.
 
 \begin{figure}
 \centering
@@ -68,8 +66,10 @@ Balsa's rules can be divided into two broad categories: \textit{syntax} and \tex
 \label{fig:representative-examples}
 \end{figure}
 
-\section*{Molecular Tree}
-\label{molecular-tree}
+\section*{Molecular Representation}
+\label{molecular-representation}
+
+Balsa's rules can be divided into two broad categories: \textit{syntax} and \textit{semantics}. Syntax defines the set of valid strings for a language, whereas semantics determine the meaning these strings. Balsa semantic are complex due to the brevity of its syntax and the inherently complex nature of molecular representation.
 
 Underpinning molecular serialization are conventions and abstractions for molecular representation. These are divided into three broad categories:
 
@@ -78,6 +78,9 @@ Underpinning molecular serialization are conventions and abstractions for molecu
 \item \textit{Conformation}, a kind of stereoisomerism resulting from restricted rotation about a bond. Balsa supports restricted rotation about double bonds capable of producing alkene isomerism.
 \item \textit{Configuration}, a kind of stereoisomerism resulting from the arrangement of neighboring atoms in three-dimensional space. Balsa supports configurations for atoms having tetrahedral symmetry attached to four neighboring atoms.
 \end{itemize}
+
+\subsection*{Molecular Tree}
+\label{molecular-tree}
 
 Balsa represents molecular structure as a \textit{molecular tree} (Figure~\ref{fig:molecular-graph-vs-tree}). A tree is a data structure comprised of a set of nodes and pairwise relationships between them called edges. Any two nodes in a tree are connected through exactly one path of alternating nodes and edges. As such, a tree contains no cycles and exactly one connected component. A molecular tree is a specialized tree onto which chemically-relevant metadata have been overlaid. A Balsa molecule is a molecular tree having zero or more nodes and zero or more edges. The empty molecule, devoid of atoms and bonds, is therefore allowed. There is no upper bound on the number of nodes or edges, although limitations in hardware and software may restrict maximum molecular size.
 
@@ -118,7 +121,7 @@ Multiple molecules are supported through \textit{gaps}. A gap is an edge devoid 
 
 Gaps and bridges decouple connectivity from bonding, but for opposite purposes. Whereas a gap connects two atoms without bonding them, a bridge creates a bond between two atoms without connecting them. These relationships can complicate the analysis of connectivity and bonding. For example, the atom succeeding a gap behaves in most situations as if it were a root node. When tallying the bonds surrounding such a node, only children are considered. Similar considerations apply when a gap succeeds an atom. Likewise, a bridge node behaves as if it were an atom in the sense that it connects to an atom through a bond. Nevertheless, a bridge node merely stands in for another atom found elsewhere in the tree. Bonding and connectivity analyses within molecular trees must therefore account for the possibility of connection-free bonds and bond-free connections. 
 
-\section*{Atoms and Bonds}
+\subsection*{Atoms and Bonds}
 \label{atoms-and-bonds}
 
 Within a molecular tree, atoms and bonds play complementary roles. Atoms control nuclear particle counts, valence electron counts, and configuration. Bonds determine bonding electron counts and conformation. Constitution, configuration, and conformation are all influenced by the individual and collective behavior of atoms and bonds.
@@ -264,7 +267,7 @@ As with atomic state, not all bond states are valid. The following restrictions 
 
 The atom and bond attributes defined here will be referenced throughout this paper as a way to connect syntax and semantics. Implementations may, of course, use any suitable internal data model. They must, however, ensure that any internal data model is consistent with the one provided here.
 
-\section*{Electron Counting}
+\subsection*{Electron Counting}
 \label{electron-counting}
 
 A molecular tree explicitly encodes the presence of protons and neutrons through the atomic attributes \ttt{element} and \ttt{isotope}, respectively. The presence of electrons, in contrast, is merely implied. The principles of charge and mass conservation nevertheless require a method to determine explicit electron counts. This is possible through \textit{electron counting}. 
@@ -282,7 +285,7 @@ Electrons are counted as follows (Figure~\ref{fig:electron-counting}). A molecul
 
 Whereas negative bond order is disallowed by definition, Balsa places no restrictions on \textit{hypervalence}. Hypervalence occurs when an atom undergoes enough bonding operations to leave it with a negative implied valence electron count. Consider lithium, which possesses one valence electron. Formation of one single bond leaves lithium with zero implied valence electrons. Application of a second bond formation leaves lithium with a zero charge and an implied valence electron count of -1. Such an arrangement may be physically meaningless, but Balsa explicitly supports it. Software using Balsa may or may not reject such species on semantic grounds.
 
-\section*{Delocalization Subgraph}
+\subsection*{Delocalization Subgraph}
 \label{delocalization-subgraph}
 
 A molecular representation based solely on the valence bond model can yield artifacts resulting from \textit{delocalization induced molecular equality} (DIME, Figure~\ref{fig:dime}). DIME arises when a given molecule can be represented by two forms, each differing from the other only in double bond placement. DIME is sometimes referred to as \enquote{resonance} or \enquote{aromaticity,} but those terms are avoided here due to their ambiguity~\cite{randic:2018,kerber:2006}.
@@ -320,7 +323,7 @@ A filled DS can be emptied through a two-step process of \textit{deselection} (F
 
 The opposite operation can be accomplished with a \textit{selection algorithm}. A selection algorithm selects two or more nodes, thereby adding them to the DS. The only requirement for a selection algorithm is that the resulting DS must have a perfect matching. Depending on the application, other criteria may be applied. For example, a selection algorithm may restrict candidate atoms to those found in cycles. Electron-counting techniques may also be introduced to approximate the chemical concept of \enquote{aromaticity.} Elision of the single bonds to be added to the DS completes the process.
 
-\section*{Valence and Subvalence}
+\subsection*{Valence and Subvalence}
 \label{valence-and-subvalence}
 
 To support implicit hydrogen counting, Balsa uses the concept of \textit{valence}. Valence is a non-negative integer computed as the sum of bond orders at a given atom. Single and elided bonds contribute one to the tally, double bonds two, and triple bonds three. Each virtual hydrogen contributes one. For example, the valence of a methyl carbon having three virtual hydrogens and a hydrogen neighbor is four. The valence of an acetaldehyde oxygen atom is two. And so on.
@@ -382,7 +385,7 @@ The phosphorous atom in phosphorous acid (H\textsubscript{3}PO\textsubscript{3})
 
 The valence of some atoms exceeds the largest default valence. In these cases, subvalence is reported as zero. Consider sodium perchlorate (NaClO\textsubscript{4}). The chlorine atom has a bond order sum of seven ($2 + 2 + 2 + 1$). From Table~\ref{table:default-valences}, the only default valence for chlorine is one. Subtracting seven yields a negative number (-6). Therefore, the subvalence is reported as zero.
 
-\section*{Computing Implicit Hydrogen Count}
+\subsection*{Computing Implicit Hydrogen Count}
 \label{computing-implicit-hydrogen-count}
 
 An atom whose \ttt{hydrogens} attribute equals \ttt{Implicit} signals that its hydrogens must be counted algorithmically. The exact algorithm depends on the value of the atoms's \ttt{selected} attribute (Figure~\ref{fig:implicit-hydrogen-count}).
@@ -402,7 +405,7 @@ An atom's implicit hydrogen count may or may not correlate with chemical intuiti
     \label{fig:implicit-hydrogen-count}
 \end{figure}
 
-\section*{Conformation}
+\subsection*{Conformation}
 \label{conformation}
 
 Restricted rotation about a bond leads to conformational isomers (\enquote{conformers}). When the bond in question is a double bond, two conformers result. They can be distinguished through \textit{partial parity bonds} (PPBs). As the name implies, a PPB encodes some of the parity information characterizing a conformationally restricted double bond. Reconstruction of the full parity requires the double bond itself and at least one flanking PPB at each terminal.
@@ -482,7 +485,7 @@ Cyclic conjugated polyenes present special challenges to the use of PPBs, as exe
     \label{fig:cyclooctatetraene}
 \end{figure}
 
-\section*{Configuration}
+\subsection*{Configuration}
 \label{configuration}
 
 Balsa limits configuration to the special case of an atom with exactly four substituents placed at the vertices of a tetrahedron. Here, \enquote{substituent} means an atomic neighbor or virtual hydrogen. Lone electron pairs are not considered to be substituents.
@@ -542,6 +545,8 @@ Special handling is required for \textit{undefined stereocenters}. A stereocente
 
 A Balsa string is a UTF-8-encoded sequence of zero or more characters chosen from the set \{ \ttt{A}, \ttt{B}, \ttt{C}, \ttt{D}, \ttt{E}, \ttt{F}, \ttt{G}, \ttt{H}, \ttt{I}, \ttt{K}, \ttt{L}, \ttt{M}, \ttt{N}, \ttt{O}, \ttt{P}, \ttt{R}, \ttt{S}, \ttt{T}, \ttt{U}, \ttt{V}, \ttt{W}, \ttt{X}, \ttt{Y}, \ttt{Z}, \ttt{a}, \ttt{b}, \ttt{c}, \ttt{d}, \ttt{e}, \ttt{f}, \ttt{g}, \ttt{h}, \ttt{i}, \ttt{k}, \ttt{l}, \ttt{m}, \ttt{n}, \ttt{o}, \ttt{p}, \ttt{r}, \ttt{s}, \ttt{t}, \ttt{u}, \ttt{v}, \ttt{0}, \ttt{1}, \ttt{2}, \ttt{3}, \ttt{4}, \ttt{5}, \ttt{6}, \ttt{7}, \ttt{8}, \ttt{9}, \ttt{+}, \ttt{-}, \ttt{.}, \ttt{\%}, \ttt{@}, \ttt{*}, \ttt{[}, \ttt{]}, \ttt{/}, \ttt{\char`\\}, \ttt{=}, \ttt{\#} \}. The internal structure of a string reflects a depth-first traversal of the corresponding molecular graphs. As such, the syntax supports branches, cycles, and disconnected components.
 
+\subsection*{Grammar}
+
 Strings conform to an \textit{LL(1) grammar} \cite{thain:2020}. An LL(1) grammar is a context-free grammar whose strings can be parsed one character at a time from left to right with at most one character of lookahead. Additionally, LL(1) grammars expand the leftmost non-terminal first. These features make LL(1) grammars such as the one used by Balsa a good fit for manually-written recursive descent parsers. LL(1) grammars can also be used as a basis for auto-generated parsers through packages such as ANTLR~\cite{parr:2014}. The full grammar for Balsa strings is available as a text file in this paper's Supporting Material.
 
 Balsa's formal grammar is presented as a series of \textit{production rules} (aka \enquote{productions}). A production rule defines a transformation allowed under the grammar. These transformations collectively define the set of valid Balsa strings. Production rules can be used in the forward direction, when writing a string, or in the reverse direction, when reading a string. 
@@ -557,7 +562,7 @@ Consider a hypothetical language composed of variable-length sequences of the lo
 
 The quantifier (\ttt{*}) indicates that a text in this language consists of a sequence of zero or more instances of the production \ttt{<a>}. This production in turn is defined as a lowercase letter (\enquote{a}). Therefore, valid texts in this language include the empty string, \enquote{a}, \enquote{aa}, and \enquote{aaaaaa} to name a few.
 
-\subsection*{Atom}
+\subsubsection*{Atom}
 
 Atoms carry most of the information in a Balsa string. The non-terminal \ttt{<atom>} can be expressed using one of four variants.
 
@@ -680,7 +685,9 @@ Having defined sequence, it's now possible to define a string as an optional seq
 <string> ::= <sequence>?
 \end{lstlisting}
 
-\section*{Reading Strings}
+\section*{Implementation}
+
+\subsection*{Reading Strings}
 \label{reading-strings}
 
 The goal of a Balsa reader is to transform a string input into a data structure output consistent with the string's content. The output data structure can take many forms. For example, a reader can merely validate a string by returning a boolean type. A more sophisticated reader can return a molecular graph capturing all atom and bond attributes and connectivity relationships.
@@ -749,7 +756,7 @@ A reader may also report optional errors, including:
     \item{Impossible charge. An atom's charge gives it an apparent negative electron count (e.g., \enquote{[C+7]}).}
 \end{enumerate}
 
-\section*{Pruning}
+\subsection*{Pruning}
 
 As noted previously, a delocalization subgraph is invalid if it lacks a perfect matching. The one exception is when a selected atom and its associated bonds can be deleted from the delocalization subgraph through \textit{pruning}. Pruning unsets the \ttt{selected} attribute of a selected atom without corresponding promotion of any attached bonds.
 
@@ -768,7 +775,7 @@ Pruning becomes necessary in cases of \textit{gratuitous selection} (Figure~\ref
 
 Writers are encouraged, but not required, to avoid gratuitous atom selection. Readers, however, must always be prepared to prune.
 
-\section*{Writing Strings}
+\subsection*{Writing Strings}
 
 Whereas a reader transforms a string into a data structure, the goal of a writer is the opposite: to transform a data structure into a valid string. This data structure will most commonly take the form of a molecular graph or tree, but other forms are possible. For practical reasons, the input data structure is likely to resemble the output from a reader. Such an arrangement makes it possible to encode and decode strings with minimal intermediate translation.
 
@@ -817,7 +824,7 @@ Writers should consider the non-negligible costs of atom selection. Algorithms f
 
 Writers must ensure that all selected atoms can be deselected. Consider pyrrole, erroneously encoded with a selected nitrogen atom (e.g., \enquote{n1cccc1}). The nitrogen atom can not be pruned because of its non-zero subvalence (3 - 2). The DS therefore contains all five atoms and all five bonds. A perfect matching does not exist. A reader receiving such a string must report an error. To avoid this outcome, a writer can consume the subvalence by adding a virtual hydrogen (e.g., \enquote{[nH]1cccc1}). The subvalence of nitrogen in this case is zero, so the atom can be pruned. Doing so leaves a DS with four nodes, four edges, and a perfect matching. Readers will therefore consider the string valid. The larger question of gratuitous selection nevertheless remains.
 
-\section*{Working with Molecular Graphs}
+\subsection*{Working with Molecular Graphs}
 \label{working-with-molecular-graphs}
 
 Molecular trees offer some important advantages, but they are used less often than molecular graphs. Sooner or later, it will be necessary to interconvert the two representations when using Balsa. Readers will need to transform a tree into a graph, and writers will need to transform a graph into a tree. Although there are only three main differences between molecular trees and molecular graphs, these differences can lead to subtle effects during transformation. Understanding these effects is the key to lossless conversion.
