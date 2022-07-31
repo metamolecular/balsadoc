@@ -660,7 +660,7 @@ The \ttt{parity} attribute of a bracket atom is determined by the \ttt{<parity>}
 <parity> ::= "@" "@"?
 \end{lstlisting}
 
-The \ttt{hydrogens} attribute of a bracket atom is controlled by the \\ \ttt{<virtual{\_}hydrogen>} non-terminal. It is comprised of the terminal \enquote{H} followed by an optional \ttt{<nonzero>} non-terminal. A digit appearing after the \enquote{H} terminal sets \ttt{hydrogens} to the corresponding virtual hydrogen count. If no digit is present, \ttt{hydrogens} is set to one. The virtual hydrogen count is set to zero by omitting the \ttt{<virtual{\_}hydrogen} non-terminal.
+The \ttt{hydrogens} attribute of a bracket atom is controlled by the \\ \ttt{<virtual{\_}hydrogen>} non-terminal. It is comprised of the terminal \enquote{H} followed by an optional \ttt{<nonzero>} non-terminal. A digit appearing after the \enquote{H} terminal sets \ttt{hydrogens} to the corresponding virtual hydrogen count. If no digit is present, \ttt{hydrogens} is set to one. The virtual hydrogen count is set to zero by omitting the \ttt{<virtual{\_}hydrogen>} non-terminal.
 
 \begin{lstlisting}
 <virtual_hydrogen> ::= "H" <nonzero>?
