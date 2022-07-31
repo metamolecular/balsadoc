@@ -323,6 +323,8 @@ A filled DS can be emptied through a two-step process of \textit{deselection} (F
 
 The opposite operation can be accomplished with a \textit{selection algorithm}. A selection algorithm selects two or more atoms, thereby adding them to the DS. The only requirement for a selection algorithm is that the resulting DS must have a perfect matching. Depending on the application, other criteria may be applied. For example, a selection algorithm may restrict candidate atoms to those found in cycles. Electron-counting techniques may also be introduced to approximate the chemical concept of \enquote{aromaticity.} Elision of the single bonds to be added to the DS completes the process.
 
+Selection is nothing more than an alternative to explicit bond order encoding. No other properties whatsoever are conferred to selected atoms. The members of a DS may be assigned the labels \enquote{aromatic,} \enquote{antiaromatic,} \enquote{non-aromatic,} or any number of other designations by downstream applications. Two encodings differing only in the presence of a DS should be considered equivalent. Balsa itself provides no guidance at all about whether or not selectable atoms should be selected, although individuals and organizations may do so.
+
 \subsection*{Valence and Subvalence}
 \label{valence-and-subvalence}
 
