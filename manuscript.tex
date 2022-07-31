@@ -545,7 +545,42 @@ Special handling is required for \textit{undefined stereocenters}. A stereocente
 
 \section*{Syntax}
 
-A Balsa string is a UTF-8-encoded sequence of zero or more characters chosen from the set \{ \ttt{A}, \ttt{B}, \ttt{C}, \ttt{D}, \ttt{E}, \ttt{F}, \ttt{G}, \ttt{H}, \ttt{I}, \ttt{K}, \ttt{L}, \ttt{M}, \ttt{N}, \ttt{O}, \ttt{P}, \ttt{R}, \ttt{S}, \ttt{T}, \ttt{U}, \ttt{V}, \ttt{W}, \ttt{X}, \ttt{Y}, \ttt{Z}, \ttt{a}, \ttt{b}, \ttt{c}, \ttt{d}, \ttt{e}, \ttt{f}, \ttt{g}, \ttt{h}, \ttt{i}, \ttt{k}, \ttt{l}, \ttt{m}, \ttt{n}, \ttt{o}, \ttt{p}, \ttt{r}, \ttt{s}, \ttt{t}, \ttt{u}, \ttt{v}, \ttt{0}, \ttt{1}, \ttt{2}, \ttt{3}, \ttt{4}, \ttt{5}, \ttt{6}, \ttt{7}, \ttt{8}, \ttt{9}, \ttt{+}, \ttt{-}, \ttt{.}, \ttt{\%}, \ttt{@}, \ttt{*}, \ttt{[}, \ttt{]}, \ttt{/}, \ttt{\char`\\}, \ttt{=}, \ttt{\#} \}. The internal structure of a string reflects a depth-first traversal of the corresponding molecular graphs. As such, the syntax supports branches, cycles, and disconnected components.
+A Balsa string is a sequence of zero or more characters belonging to the US-ASCII set (Figure~\ref{table:character-set}). The internal structure of a string reflects a depth-first traversal of the corresponding molecular graphs. As such, the syntax supports branches, cycles, and disconnected components.
+
+\begin{table}
+\caption{Balsa's Character Set.}
+\centering
+\begin{tabular}{c c c c c c}
+    \hline
+    Code & Character & Code & Character & Code & Character      \\
+    \hline
+    35   & \ttt{\#}  & 67   & \ttt{C}   & 92   & \ttt{\char`\\} \\
+    37   & \ttt{\%}  & 68   & \ttt{D}   & 93   & \ttt{]}        \\
+    40   & \ttt{(}   & 69   & \ttt{E}   & 97   & \ttt{a}        \\
+    41   & \ttt{)}   & 70   & \ttt{F}   & 98   & \ttt{b}        \\
+    42   & \ttt{*}   & 71   & \ttt{G}   & 99   & \ttt{c}        \\
+    43   & \ttt{+}   & 72   & \ttt{H}   & 100  & \ttt{d}        \\
+    45   & \ttt{-}   & 73   & \ttt{I}   & 101  & \ttt{e}        \\
+    46   & \ttt{.}   & 75   & \ttt{K}   & 102  & \ttt{f}        \\
+    47   & \ttt{/}   & 76   & \ttt{L}   & 103  & \ttt{g}        \\
+    48   & \ttt{0}   & 77   & \ttt{M}   & 104  & \ttt{h}        \\
+    49   & \ttt{1}   & 78   & \ttt{N}   & 105  & \ttt{i}        \\
+    50   & \ttt{2}   & 79   & \ttt{O}   & 107  & \ttt{k}        \\
+    51   & \ttt{3}   & 80   & \ttt{P}   & 108  & \ttt{l}        \\
+    52   & \ttt{4}   & 82   & \ttt{R}   & 109  & \ttt{m}        \\
+    53   & \ttt{5}   & 83   & \ttt{S}   & 110   & \ttt{n}       \\
+    54   & \ttt{6}   & 84   & \ttt{T}   & 111   & \ttt{o}       \\
+    55   & \ttt{7}   & 85   & \ttt{U}   & 112   & \ttt{p}       \\
+    56   & \ttt{8}   & 86   & \ttt{V}   & 114   & \ttt{r}       \\
+    57   & \ttt{9}   & 87   & \ttt{W}   & 115   & \ttt{s}       \\
+    61   & \ttt{=}   & 88   & \ttt{X}   & 116   & \ttt{t}       \\
+    64   & \ttt{@}   & 89   & \ttt{Y}   & 117   & \ttt{u}       \\
+    65   & \ttt{A}   & 90   & \ttt{Z}   & 121   & \ttt{y}       \\
+    66   & \ttt{B}   & 91   & \ttt{[}   &       &               \\
+    \hline
+\end{tabular}
+\label{table:character-set}
+\end{table}
 
 \subsection*{Grammar}
 
