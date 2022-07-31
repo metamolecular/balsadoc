@@ -90,7 +90,7 @@ The main advantage of trees over graphs is information density. Graphs must acco
 
 \begin{figure}
     \centering
-    \includegraphics[width=6cm]{molecular-graph-vs-tree.pdf}
+    \includegraphics[width=\columnwidth]{molecular-graph-vs-tree.pdf}
     \caption{Molecular Graph vs. Molecular Tree. The bonds in a molecular graph reference atoms indirectly through unique indexes (lower left). In contrast, a bond in a molecular tree defines its target atom inline (lower right). This increases the potential efficiency of trees over graphs for molecular representation. To simulate ring closure, a molecular tree introduces bridge nodes, as described later (solid grey circles).}
     \label{fig:molecular-graph-vs-tree}
 \end{figure}
@@ -99,7 +99,7 @@ When discussing molecular trees, it's often useful to refer to \textit{node orde
 
 \begin{figure}
     \centering
-    \includegraphics[width=2.5cm]{node-order.pdf}
+    \includegraphics[width=\columnwidth]{node-order.pdf}
     \caption{Node Order. Nodes in a molecular tree assume the order in which they were added through depth-first construction. Parents precede children, and children added first preceded those added later.}
     \label{fig:node-order}
 \end{figure}
@@ -114,7 +114,7 @@ Multiple molecules are supported through \textit{gaps}. A gap is an edge devoid 
 
 \begin{figure}
     \centering
-    \includegraphics[width=4in]{node-and-edge-associations.pdf}
+    \includegraphics[width=\columnwidth]{node-and-edge-associations.pdf}
     \caption{Nodes and Edge Associations. Three node/edge associations are possible within a molecular tree. A parent atom can be connected to a child atom through a bond (left). A parent atom can also be connected to a child bridge node through a bond (center). Finally, an atom can be connected, without bonding, to a child atom through a gap (right).}
     \label{fig:nodes-and-edge-associations}
 \end{figure}
@@ -174,7 +174,7 @@ The attributes \ttt{element} (\enquote{element}) and \ttt{isotope} (\enquote{iso
 
 \begin{figure}
     \centering
-    \includegraphics[width=4in]{periodic-table.pdf}
+    \includegraphics[width=\columnwidth]{periodic-table.pdf}
     \caption{Elements. Available chemical elements and their allowed roles. Not all IUPAC-approved elements are available. Hydrogen counts of atoms associated with elements on blue background can be computed algorithmically. Atoms associated with elements on green background can be selected.}
     \label{fig:periodic-table}
 \end{figure}
@@ -292,7 +292,7 @@ A molecular representation based solely on the valence bond model can yield arti
 
 \begin{figure}
     \centering
-    \includegraphics[width=2in]{dime.pdf}
+    \includegraphics[width=\columnwidth]{dime.pdf}
     \caption{Delocalization-induced molecular equality (DIME). Two chemically equivalent molecular representations differ only due to delocalization.}
     \label{fig:dime}
 \end{figure}
