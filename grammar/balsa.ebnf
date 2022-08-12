@@ -1,8 +1,8 @@
 String            ::= sequence?
 sequence          ::= atom ( union | branch | gap )*
-union             ::= bond? ( bridge | seq   uence )
+union             ::= bond? ( bridge | sequence )
 branch            ::= "(" ( dot | bond )? sequence ")"
-gap               ::= dot seq  uence
+gap               ::= dot sequence
 atom              ::= star | shortcut | selection | bracket
 bracket           ::= "[" isotope? symbol parity?
                          virtual_hydrogen? charge? "]"
@@ -38,6 +38,6 @@ element           ::= "A" ( "c" | "g" | "l" | "m" | "r" | "s" | "t" | "u" )
                     | "T" ( "a" | "b" | "c" | "e" | "h" | "i" | "l" | "m" )
                     | "U" | "V" | "W" | "Xe" | "Y" "b"?
                     | "Z" ( "n" | "r" )
-bond              ::= "-" | "=" | "#" | | "/" | "\\"
+bond              ::= "-" | "=" | "#" | "/" | "\"
 digit             ::= "0" | nonzero
 nonzero           ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
