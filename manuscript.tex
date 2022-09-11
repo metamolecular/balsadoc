@@ -466,7 +466,7 @@ Spreading conformational parity over more than one bond in this way means that s
     \item{ Misspecification. A PPB is used between atoms, neither of which connects to a double bond.}
 \end{itemize}
 
-An error must be reported should any of these states be encountered. Note that it is possible for a conformation to be both overspecified on one side and underspecified on the other.
+An error must be reported should any of these states be encountered. Note that it is possible for a conformation to be both overspecified on one side of a double bond and underspecified on the other.
 
 \begin{figure}
     \centering
@@ -484,6 +484,15 @@ An exception to the underspecification rule applies in the case of conjugated po
     \label{fig:bond-error-state-exceptions}
 \end{figure}
 
+A different kind of problem arises in the case of 2,4,6-octatriene, where the conformations of both outer double bonds are set but the conformation of the interior double bond is unknown (Figure~\ref{fig:artifactual-bond-conformation}) \cite{mayfield:2022}. The use of PPBs along carbon-carbon bonds artifactually sets the inner double bond conformation. In this case the problem can be solved by reifying the hydrogens attached to the interior double bond, then directing PPBs along the resulting carbon-hydrogen bonds. This is, however, not a general solution. It will fail, for example, in the case of a nitrogen-nitrogen bond due to the lack of reifiable hydrogens.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{artifactual-bond-conformation.pdf}
+    \caption{Artifactual bond conformation. Placing PPBs along carbon-carbon bonds sets the interior double bond's conformation artifactually to \textit{anti} (left). This problem can be addressed by hydrogen reification followed by partial parity assignment to the newly-available carbon-hydrogen bonds (right).}
+    \label{fig:artifactual-bond-conformation}
+\end{figure}
+
 The presence of a bridge node within a PPB complicates the assignment of direction (Figure~\ref{fig:bridged-ppb-bond}). A bridge node has no children and therefore can never be a parent. At the same time, a bond always points from parent to child. This means that a bridged PPB yields a pair of bonds with opposite directions. The first (or "left") bond, has the direction that would result from a direct bond to an atomic child. The second (or "right") bond has the opposite direction.
 
 \begin{figure}
@@ -493,7 +502,7 @@ The presence of a bridge node within a PPB complicates the assignment of directi
     \label{fig:bridged-ppb-bond}
 \end{figure}
 
-Cyclic conjugated polyenes present special challenges to the use of PPBs, as exemplified by cyclooctatetraene (Figure~\ref{fig:cyclooctatetraene}). Although the (\textit{syn}, \textit{syn}, \textit{syn}, \textit{syn}) conformation is expressable, the (\textit{syn}, \textit{syn}, \textit{syn}, \textit{anti}) conformation is not. This problem arises because the conformation for two different double bonds is set by the same PPB.
+Cyclic conjugated polyenes present special challenges to the use of PPBs, as exemplified by cyclooctatetraene (Figure~\ref{fig:cyclooctatetraene}). Although the (\textit{syn}, \textit{syn}, \textit{syn}, \textit{syn}) conformation is expressable using PPBs located along carbon-carbon axes only, the (\textit{syn}, \textit{syn}, \textit{syn}, \textit{anti}) conformation is not. This problem arises because the conformation for two different double bonds is set by the same PPB.
 
 \begin{figure}
     \centering
