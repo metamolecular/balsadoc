@@ -31,6 +31,10 @@
 
 \maketitle
 
+\begin{abstract}
+Despite its widespread use, Simplified Molecular Input Line Entry System (SMILES) remains underspecified. The lack of a detailed specification encourages improvisation by software developers, complicates data standardization efforts, and undermines extension development. To address these problems this work proposes Balsa, a language subset of SMILES. A formal, machine-readable grammar defines Balsa's syntax. Semantics are described at three levels of resolution: constitution; configuration; and conformation. To estimate the compatibility of Balsa strings with SMILES software, all differences between the two languages were identified. To the extent that the SMILES documentation is unambiguous, every difference was consistent with a language subset relationship.
+\end{abstract}
+
 \section*{Introduction}
 
 Simplified Molecular Input Line Entry System (SMILES) was first described by Weininger in 1988~\cite{weininger:1988}. As a line notation~\cite{wiswesser:1968}, SMILES represents molecules as single line character sequences, or strings. SMILES has since been widely adopted. Read and write functionalities are routinely supported by popular cheminformatics toolkits, including: Open Babel~\cite{oBoyle:2011}; RDKit~\cite{rdkit}; Chemistry Development Kit~\cite{steinbeck:2003}; JChem Base~\cite{jchemBase}; the Daylight Toolkit~\cite{daylightToolkit}; and OEChem TK~\cite{oetk}. SMILES encodings can be found in many public-facing databases, including: PubChem~\cite{kim:2016}; ChEBI~\cite{degtyarenko:2007}; ZINC~\cite{irwin:2005}; ChEMBL~\cite{gaulton:2012}; and Wikipedia~\cite{wikipediaCAS}. Raw SMILES strings have been used extensively in machine learning applications~\cite{sousa:2021}. Algorithmic selection of a single SMILES encoding has been used for unique molecular identification~\cite{weininger:1989,oBoyle:2012}. SMILES has also been extended to carry various forms of metadata, as exemplified by Jmol SMILES~\cite{hanson:2016}, CurleySMILES~\cite{drefahl:2011}, BigSMILES~\cite{lin:2019}, and CXSMILES~\cite{cxsmiles}.
