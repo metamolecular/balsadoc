@@ -25,7 +25,6 @@
 \newcolumntype{L}{>{\arraybackslash}m{3cm}}
 \lstset{basicstyle=\ttfamily,breaklines=true}
 
-
 \title{Balsa: A Compact Line Notation Based on SMILES}
 \author{Richard L. Apodaca\thanks{rapodaca@metamolecular.com}}
 
@@ -705,10 +704,10 @@ Values not defined within a bracket production leave the atomic attributes of th
 
 \subsection*{Sequence}
 
-Children are added to an atom through the \ttt{sequence} non-terminal (\enquote{sequence}). A sequence starts with a required \ttt{atom} non-terminal. If an allowed non-terminal does not follow, the corresponding atom will have no children. Allowed non-terminals will be one of: \ttt{union}; \ttt{branch}; or \ttt{split}.
+Children are added to an atom through the \ttt{sequence} non-terminal (\enquote{sequence}). A sequence starts with a required \ttt{atom} non-terminal. If an allowed non-terminal does not follow, the corresponding atom will have no children. Allowed non-terminals will be one of: \ttt{union}; \ttt{branch}; or \ttt{gap}.
 
 \begin{lstlisting}
-sequence ::= atom ( union | branch | split )*
+sequence ::= atom ( union | branch | gap )*
 \end{lstlisting}
 
 The \ttt{union} non-terminal consists of an optional \ttt{bond} non-terminal followed by a mandatory non-terminal selected from \ttt{bridge} or \ttt{sequence}. If either of these latter non-terminals are detected but \ttt{bond} is not, the resulting bond is elided.
