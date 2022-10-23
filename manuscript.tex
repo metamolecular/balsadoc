@@ -1021,7 +1021,7 @@ Balsa provides a few semantic clarifications not fully addressed in ProtoSMILES.
 \end{minipage}
 \end{table}
 
-Compatibility between Balsa and ProtoSMILES is summarized in Table~\ref{table:feature-comparison}. Barring elements of ProtoSMILES that are either underspecified or internally inconsistent (entries marked \enquote{maybe}), Balsa can be seen to be a subset of ProtoSMILES. Output from Balsa writers should therefore be readable by SMILES readers. However, output from SMILES writers may or may not be readable by Balsa readers.
+Compatibility between Balsa and ProtoSMILES is summarized in Table~\ref{table:feature-comparison}. Barring elements of ProtoSMILES that are either underspecified or internally inconsistent (entries marked \enquote{maybe}), Balsa can be seen to be a subset of ProtoSMILES. Output from Balsa writers should therefore be readable by SMILES readers. However, output from SMILES writers may or may not be readable by Balsa readers. Balsa can therefore be characterized as forward compatible with ProtoSMILES~\cite{extendingVersioningLanguages}.
 
 \section*{Discussion}
 
@@ -1031,7 +1031,7 @@ These metrics compare favorably with alternatives. Consider the molfile (V2000) 
 
 The information density of Balsa strings makes them attractive for several applications. In memory-constrained environments such as those found on handheld devices and networks, many more Balsa strings can be present than alternative encodings. In-memory structure search over large collections becomes feasible. Because a string often fits within one line on a terminal, Balsa can be used for data entry in manual interactive shells such as a real-eval-print loops (REPLs) or notebooks.
 
-Another advantage is lossless interconversion with other serialization formats. The line notation InChI might appear to compete with Balsa in this sense. The authors of InChI have noted that InChI is not a solution to the molecular serialization problem but rather an identifier.\cite{heller:2015} The reason presumably lies with the fact that InChI uses concepts such as hydrogen delocalization that are uncommon elsewhere. To date, no third-party reader or writer of InChI has been reported.
+Another advantage is lossless interconversion with other serialization formats. The line notation InChI might appear to compete with Balsa in this sense. The authors of InChI have noted that InChI is not a solution to the molecular serialization problem but rather an identifier~\cite{heller:2015}. The reason presumably lies with the fact that InChI uses concepts such as hydrogen delocalization that are uncommon elsewhere. To date, no third-party reader or writer of InChI has been reported.
 
 Despite its information density, Balsa can faithfully encode and decode most of what chemists would consider \enquote{organic molecules.} This is evidenced by the widespread presence of Balsa strings within large, public-facing databases such as PubChem,\cite{kim:2016} ChEMBL,\cite{gaulton:2012} ChEBI,\cite{degtyarenko:2007} and others.
 
@@ -1047,13 +1047,17 @@ The availability of a minimal yet highly functional, fully-specified core langua
 
 \section*{Conclusion}
 
-This paper describes Balsa, a compact molecular serialization format designed for backward-compatibility with SMILES. Constitutionally, Balsa can encode any molecule conforming to the valence bond model. In the event of undesired symmetry artifacts due to delocalization, Balsa offers a mitigation based in graph theory. Conformational isomerism of alkenes is supported by partial parity bonds. The configurations of tetracoordinate, stereogenic atoms are encoded through the use of a parity enumeration and conventions around its use.
+This paper describes Balsa, a compact molecular serialization format designed to be forward compatible with SMILES. Constitutionally, Balsa can encode any molecule conforming to the valence bond model. In the event of undesired symmetry artifacts due to delocalization, Balsa offers a mitigation based in graph theory. Conformational isomerism of alkenes is supported by partial parity bonds. The configurations of tetracoordinate, stereogenic atoms are encoded through the use of a parity enumeration and conventions around its use.
 
 Balsa's syntax is described in detail through a formal grammar. This method concisely summarizes the complete set of strings that could be considered syntactically valid Balsa representations. The formal grammar was created for either direct use with an automated parser generator or as a blueprint for a hand-written recursive-descent parser.
 
 The complete set of rules needed to interpret Balsa's syntax are described in detail. This is a crucial component of the language's definition because Balsa achieves its information density in part by favoring convention over encoding. As an aid to difficult cases, guidelines for readers and writers are included.
 
 As a language subset, Balsa can be used with a wide range of SMILES software today. In this sense, Balsa may seem to offer nothing new or even of value. However, Balsa has been defined at a level of precision that SMILES never was. This difference makes it possible to use Balsa in unique ways. Open reference implementations and validation suites can now be developed and deployed. Families of extensions can be built, each one based on the same unambiguous foundation. Formal standardization becomes more feasible given detailed reference material on which to draw. Finally, it is only through the clear demarcation of boundaries that the frontier becomes visible.
+
+\section*{Acknowledgement}
+
+I thank Andrew Dalke and John Mayfield for helpful conversations during the preparation of this manuscript.
 
 \clearpage
 \printbibliography
