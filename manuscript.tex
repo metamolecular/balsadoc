@@ -57,7 +57,7 @@ This paper attempts to solve these problems with Balsa, a fully-specified langua
 
 \section*{Goals}
 
-Balsa's main goal is to solve the \textit{molecular serialization} problem. Serialization refers to the process of translating a data structure into a format that can be transmitted over a communication channel for later reconstruction. This allows general-purpose devices and networks to convey complex domain-specific information. Receiver and recipient may be separated by time, space, or both. Molecular serialization extends the concept of serialization to molecular structure. Examples of molecular serialization formats other than SMILES include Chemical Markup Language (CML)~\cite{murray-rust:2011}, CDXML~\cite{cdxml}, and CTfile (\enquote{molfile})~\cite{ctfileFormats}. Figure~\ref{fig:representative-examples} presents some simple chemical structures together with their Balsa serializations.
+Balsa's main goal is to solve the \textit{molecular serialization} problem. Serialization refers to the process of translating a data structure into a format that can be transmitted over a communication channel for later reconstruction. This allows general-purpose devices and networks to convey complex domain-specific information. Receiver and recipient may be separated by time, space, or both. Molecular serialization extends the concept of serialization to molecular structure. Examples of molecular serialization formats other than SMILES include Chemical Markup Language (CML)~\cite{murray-rust:2011}, CDXML~\cite{cdxml}, and CTfile (e.g., \enquote{Molfile})~\cite{ctfileFormats}. Figure~\ref{fig:representative-examples} presents some simple chemical structures together with their Balsa serializations.
 
 A secondary goal is brevity. Molecules should be expressable using only a few characters for each atom and either zero or one character for each bond. Brevity benefits humans who manually encode chemical structures within interactive line-driven interfaces such as those found in terminal sessions and notebooks. Brevity also benefits computer handling, where the use of compact molecular representation can improve performance when storage, bandwidth, or processor cycles are limiting factors.
 
@@ -73,12 +73,12 @@ Molecular serialization schemes need to balance generality against complexity. A
 \section*{Molecular Representation}
 \label{molecular-representation}
 
-Balsa's rules can be divided into two broad categories: \textit{syntax} and \textit{semantics}. Syntax defines the set of grammatically valid strings for a language, whereas semantics determines their meaning. Balsa semantic are complex due to the brevity of its syntax and the inherently complex nature of molecular representation.
+Balsa's rules can be divided into two broad categories: \textit{syntax} and \textit{semantics}. Syntax defines the set of grammatically valid strings for a language, whereas semantics determines their meaning. Balsa semantics are complex due to the brevity of the syntax and the inherently complex nature of molecular representation.
 
 Underpinning molecular serialization are conventions and abstractions for molecular representation. These are divided into three broad categories:
 
 \begin{itemize}
-\item \textit{Constitution}, the atoms present in a molecule and their bonding relationships. Balsa's extends the valence bond model with a limited form of delocalized bonding.
+\item \textit{Constitution}, the atoms present in a molecule and their bonding relationships. Balsa's extends the electron-pair bonding model with a limited form of delocalized bonding.
 \item \textit{Conformation}, a kind of stereoisomerism resulting from restricted rotation about a bond. Balsa supports restricted rotation about double bonds capable of producing alkene isomerism.
 \item \textit{Configuration}, a kind of stereoisomerism resulting from the arrangement of neighboring atoms in three-dimensional space. Balsa supports configurations for atoms having tetrahedral symmetry attached to four neighboring atoms.
 \end{itemize}
@@ -90,7 +90,7 @@ Balsa represents molecular structure as a \textit{molecular tree} (Figure~\ref{f
 
 A related but more common concept is the \textit{molecular graph}~\cite{balaban:1985}. Unlike molecule graphs, molecular trees do not support cycles or disconnected components. This difference might appear to make molecular trees unsuitable for molecular representation, in which both rings and aggregation play important structural roles. However, these apparent shortcomings can be mitigated and even harnessed.
 
-The main advantage of trees over graphs is information density. Graphs must accommodate cycles, a requirement fulfilled by assigning a unique identifier to each node. Each edge then references two of these identifiers. Graph representations therefore incur the storage overhead of identifiers associated with both nodes and edges. In contrast, a tree can be directly encoded as a set of nested, alternating paths of nodes and edges. This simplifies the representation and eliminates the overhead of assigning and using node identifiers. 
+The main advantage of trees over graphs is information density. Graphs must accommodate cycles, a requirement fulfilled by assigning a unique identifier to each node. Each edge then references two of these identifiers. Graph representations therefore incur the storage overhead of identifiers associated with both nodes and edges. In contrast, a tree can be directly encoded as a set of nested, alternating paths of nodes and edges. This simplifies representation and eliminates the overhead of assigning and using node identifiers. 
 
 \begin{figure}
     \centering
@@ -189,9 +189,9 @@ A virtual hydrogen is one that appears as an integer unit contribution associate
 
 An implicit hydrogen is similar to a virtual hydrogen in that both the hydrogen atom and its bond have been replaced with a tally. Unlike a virtual hydrogen, however, this tally is not present as an attribute on the parent atom but rather as a computation. Setting the \ttt{hydrogens} attribute to \ttt{Implicit} activates implicit hydrogen counting. Not all atoms are eligible for this treatment (see: \nameref{computing-implicit-hydrogen-count}).
 
-It is sometimes convenient to interconvert virtual and atomic hydrogens. The transformation of an atomic hydrogen into a virtual hydrogen is called \textit{reification}. The reverse process is called \textit{virtualization}.
+It is sometimes convenient to interconvert virtual and atomic hydrogens. The transformation of an atomic hydrogen into a virtual hydrogen is called \textit{virtualization}. The reverse process is called \textit{reification}.
 
-The \ttt{charge} (\enquote{charge}) and \ttt{selected} (\enquote{selected}) attributes determine valence electron count (see: \nameref{electron-counting}). Charge refers formal charge, or the difference between the valence electron count of the element and the sum of bonding and nonbonding electrons of the bound atom. By default, an atom is assigned a charge of zero. Minimum and maximum values for charge are -9 and +9, respectively. The \ttt{selected} attribute adjusts an atom's selection status. Selecting an atom allows it to participate in extended bonding (see: \nameref{delocalization-subgraph}).
+The \ttt{charge} (\enquote{charge}) and \ttt{selected} (\enquote{selected}) attributes determine valence electron count (see: \nameref{electron-counting}). Charge refers to formal charge, or the difference between the valence electron count of the element and the sum of bonding and nonbonding electrons of the bound atom. By default, an atom is assigned a charge of zero. Minimum and maximum values for charge are -9 and +9, respectively. The \ttt{selected} attribute adjusts an atom's selection status. Selecting an atom allows it to participate in extended bonding (see: \nameref{delocalization-subgraph}).
 
 Configuration is determined by the \ttt{parity} attribute (\enquote{atom parity}). The type of this value, \ttt{AtomParity} is an enumeration supporting two values: \ttt{Clockwise} and \ttt{Counterclockwise} (Table~\ref{table:atom-parity-variants}). The interpretation and encoding of atom parity will be described in detail later (see: \nameref{configuration}).
 
@@ -292,7 +292,7 @@ The atom and bond attributes defined here will be referenced throughout this pap
 
 A molecular tree explicitly encodes the presence of protons and neutrons through the atomic attributes \ttt{element} and \ttt{isotope}, respectively. The presence of electrons, in contrast, is merely implied. The principles of charge and mass conservation nevertheless require a method to determine explicit electron counts. This is possible through \textit{electron counting}. 
 
-Electron counting in Balsa is based on the well-known \textit{valence bond model} (VB Model)~\cite{lewis:1916}. This model assumes that a bond spans exactly two atoms and is associated with a nonzero, positive, and even electron count. These electrons are drawn in equal quantities from each atom's set of valence electrons. A single bond draws one electron from each atom (two total), a double bond two (four total), and a triple bond three (six total). The electron count of an atom whose \ttt{element} attribute equals \ttt{None} is always zero. Bonding does not change it.
+Electron counting in Balsa is based on the well-known electron-pair bonding model developed by Lewis and others (\enquote{Lewis model})~\cite{lewis:1916}. This model assumes that a bond spans exactly two atoms and is associated with a nonzero, positive, and even electron count. These electrons are drawn in equal quantities from each atom's set of valence electrons. A single bond draws one electron from each atom (two total), a double bond two (four total), and a triple bond three (six total). The electron count of an atom whose \ttt{element} attribute equals \ttt{None} is always zero. Bonding does not change it.
 
 Electrons are counted as follows (Figure~\ref{fig:electron-counting}). A molecular tree starts as a single root atom. The electron count of this atom equals the difference between proton count (atomic number) and charge. Adding a bond is a three-step process. First, a child atom is constructed with an electron count determined in the same way as the root atom. Next, the child atom and the bond are added to the molecular tree. Finally, the electron counts of each atom and the bond are updated. If parent and child are connected through a gap edge, no electrons are deducted from either atom. Should a parent atom be bound to a child bridge node, then the electron count of the referenced atom is not changed.
 
@@ -308,7 +308,7 @@ Whereas negative bond order is disallowed by definition, Balsa places no restric
 \subsection*{Delocalization Subgraph}
 \label{delocalization-subgraph}
 
-A molecular representation based solely on the valence bond model can yield artifacts resulting from \textit{delocalization induced molecular equality} (DIME, Figure~\ref{fig:dime}). DIME results from limitations to the valence bond model causing two representations to encode what would be considered the same molecule. When the two forms differ only in double bond placement, the terms \enquote{resonance} or \enquote{aromaticity} are sometimes used. These terms are avoided here due to their ambiguity~\cite{randic:2018,kerber:2006}.
+A molecular representation based solely on the Lewis model can yield artifacts resulting from \textit{delocalization induced molecular equality} (DIME, Figure~\ref{fig:dime}). DIME results from limitations of the Lewis model causing two representations to encode what would be considered the same molecule. When the two forms differ only in double bond placement, the terms \enquote{resonance} or \enquote{aromaticity} are sometimes used. These terms are avoided here due to their ambiguity~\cite{randic:2018,kerber:2006}.
 
 \begin{figure}
     \centering
@@ -571,7 +571,7 @@ It is sometimes useful to manipulate a configuration in a way that preserves the
 
 Not all tetracoordinate atoms will be \textit{stereocenters}. A stereocenter is an atom whose \enquote{ligand permutation produces stereoisomers,} as defined by Mislow and Siegel~\cite{mislow:1984}. The presence of four bonds around a central atom is therefore a necessary, but insufficient condition to form a stereocenter. Molecular topology can result in permutation that does not yield stereoisomers. The assignment of non-default parities to such atoms should therefore be avoided.
 
-Special handling is required for \textit{undefined stereocenters}. A stereocenter is undefined if it lacks a parity. Undefined stereocenters indicate that no information about a central atom's configuration is known. This could indicate the presence of either a single configuration or a configurational mixture. This interpretation is consistent with the one used by molfile format~\cite{ctfileFormats}.
+Special handling is required for \textit{undefined stereocenters}. A stereocenter is undefined if it lacks a parity. Undefined stereocenters indicate that no information about a central atom's configuration is known. Either a single configuration or a configurational mixture is present. This interpretation is consistent with the one used by Molfile format~\cite{ctfileFormats}.
 
 \section*{Syntax}
 
@@ -836,7 +836,7 @@ An atom to be considered for pruning may have a non-zero charge. If so, subvalen
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{gratuitous-selection.pdf}
-    \caption{Gratuitous selection. Heteroatoms are selected needlessly because subvalence is zero in every case. Atoms selected gratuitously, must be pruned before processing the DS.}
+    \caption{Gratuitous selection. Heteroatoms are selected needlessly because subvalence is zero in every case. Atoms selected gratuitously must be pruned before processing the DS.}
     \label{fig:gratuitous-selection}
 \end{figure}
 
@@ -889,7 +889,7 @@ As described previously, the \ttt{branch} non-terminal encodes branches. A usefu
     \label{table:stack-for-writing-string}
 \end{table}
 
-Writers should consider the non-negligible costs of atom selection. Algorithms for selection are likely to involve the perception of cycles, and so could exhibit superlinear time complexity. Often, a reader must perform a global deselection to arrive at a localized valence bond representation, which at the very least requires pruning and a maximal matching procedure. In other words, atom selection imposes two sets of costs: one on the writer and the other on every subsequent reader forever into the future.
+Writers should consider the non-negligible costs of atom selection. Algorithms for selection are likely to involve the perception of cycles, and so could exhibit superlinear time complexity. Often, a reader must perform a global deselection to arrive at a localized Lewis representation, which at the very least requires pruning and a maximal matching procedure. In other words, atom selection imposes two sets of costs: one on the writer and the other on every subsequent reader forever into the future.
 
 Writers must ensure that all selected atoms can be deselected. Consider pyrrole, erroneously encoded with a selected nitrogen atom (e.g., \enquote{n1cccc1}). The nitrogen atom can not be pruned because of its non-zero subvalence (3 - 2). The DS therefore contains all five atoms and all five bonds. A perfect matching does not exist. A reader receiving such a string must report an error. To avoid this outcome, a writer can consume the subvalence by adding a virtual hydrogen (e.g., \enquote{[nH]1cccc1}). The subvalence of nitrogen in this case is zero, so the atom can be pruned. Doing so leaves a DS with four atoms, four edges, and a perfect matching. Readers will therefore consider the string valid. The larger question of gratuitous selection nevertheless remains.
 
@@ -1027,7 +1027,7 @@ Compatibility between Balsa and ProtoSMILES is summarized in Table~\ref{table:fe
 
 Balsa's main advantage as a molecular serialization format is high information density. The most common atom types can be represented with just one character. The worst case atom, using every available atomic attribute, requires 14 characters. The most common bond types can be encoded implicitly. In the worst case one character per bond is required.
 
-These metrics compare favorably with alternatives. Consider the molfile (V2000) format. 32 characters per atom are required in the best case, and 51 characters in the worst. All bonds, regardless of type, require between nine and 12 characters. Atomic charges and isotopes typically require additional characters.
+These metrics compare favorably with alternatives. Consider the Molfile (V2000) format. 32 characters per atom are required in the best case, and 51 characters in the worst. All bonds, regardless of type, require between nine and 12 characters. Atomic charges and isotopes typically require additional characters.
 
 The information density of Balsa strings makes them attractive for several applications. In memory-constrained environments such as those found on handheld devices and networks, many more Balsa strings can be present than alternative encodings. In-memory structure search over large collections becomes feasible. Because a string often fits within one line on a terminal, Balsa can be used for data entry in manual interactive shells such as a real-eval-print loops (REPLs) or notebooks.
 
@@ -1041,13 +1041,13 @@ Broader expansion of Balsa's capabilities could be possible through \textit{meta
 
 Setting aside the many technical and usability issues a metaformat would raise, versioning is likely to play an important role. Balsa itself lacks any mechanism to convey the concept of version. This stands in contrast to InChI, which not only encodes a version identifier, but has done so from its first release. Adding a version identifier would, unfortunately, break compatibility with the large number of existing SMILES software. Metaformats offer an opportunity to address this limitation.
 
-The most noteworthy feature of Balsa is its compatibility with SMILES. Contemporary SMILES implementations will be able to read and write Balsa strings --- at least to a point. Incompatibilities will arise from three main sources: (1) those features of SMILES that Balsa has deliberately omitted; (2) those aspects of the SMILES language that are incompletely-specified, ambiguous, or self-contradictory; and (3)those features of SMILES that were deliberately disregarded by implementations.
+The most noteworthy feature of Balsa is its compatibility with SMILES. Contemporary SMILES implementations will be able to read and write Balsa strings --- at least to a point. Incompatibilities will arise from three main sources: (1) those features of SMILES that Balsa has deliberately omitted; (2) those aspects of the SMILES language that are incompletely-specified, ambiguous, or self-contradictory; and (3) those features of SMILES that were deliberately disregarded by implementations.
 
 The availability of a minimal yet highly functional, fully-specified core language offers many opportunities to improve data quality. One of the most important will be an open reference implementation, the design and source code of which are underway. A freely-available reference implementation in turn makes automated validation suites possible. These suites can improve data quality by reporting syntax and semantic differences among implementations, preferably before release. A reference implementation taken together with the guidelines for readers and writers in this paper should make it possible to write software that conforms to a very high level of precision, regardless of programming language or paradigm. Given verified implementations, performance optimizations can be considered. The existence of a core language specification should also aid standardization efforts, either for Balsa itself, or SMILES. Finally, the development of better line notations is only possible given a thorough understanding of the scope and limitations of existing options. Here, metaformats could offer a bridge from the present to the future.
 
 \section*{Conclusion}
 
-This paper describes Balsa, a compact molecular serialization format designed to be forward compatible with SMILES. Constitutionally, Balsa can encode any molecule conforming to the valence bond model. In the event of undesired symmetry artifacts due to delocalization, Balsa offers a mitigation based in graph theory. Conformational isomerism of alkenes is supported by partial parity bonds. The configurations of tetracoordinate, stereogenic atoms are encoded through the use of a parity enumeration and conventions around its use.
+This paper describes Balsa, a compact molecular serialization format designed to be forward compatible with SMILES. Constitutionally, Balsa can encode any molecule conforming to the electron-pair bonding model. In the event of undesired symmetry artifacts due to delocalization, Balsa offers a mitigation based in graph theory. Conformational isomerism of alkenes is supported by partial parity bonds. The configurations of tetracoordinate, stereogenic atoms are encoded through the use of a parity enumeration and conventions around its use.
 
 Balsa's syntax is described in detail through a formal grammar. This method concisely summarizes the complete set of strings that could be considered syntactically valid Balsa representations. The formal grammar was created for either direct use with an automated parser generator or as a blueprint for a hand-written recursive-descent parser.
 
