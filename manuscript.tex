@@ -405,6 +405,8 @@ The carbonyl carbon atom of acetaldehyde illustrates the effects of substitution
 
 The phosphorous atom in phosphorous acid (H\textsubscript{3}PO\textsubscript{3}) illustrates the use of Algorithm \ref{algorithm:subvalence} for atoms having multiple target valences. Bond order sum is four ($2 + 1 + 1$). The first default valence is 3, but subtracting valence from that value yields a negative number ($3 - 4$). Continuing to the next default valence, five, a difference of 1 is obtained. Therefore, the subvalence of the phosphorous-bearing atom is reported as one.
 
+The valence calculation excludes implicit hydrogens. For example, ethane can be encoded such that each carbon has three implicit hydrogens. Although these hydrogens are understood to be bonded, the valence calculation for carbon returns just one.
+
 The valence of some atoms exceeds the largest default valence. In these cases, subvalence is reported as zero. Consider sodium perchlorate (NaClO\textsubscript{4}). The chlorine atom has a bond order sum of seven ($2 + 2 + 2 + 1$). From Table~\ref{table:default-valences}, the only default valence for chlorine is one. Subtracting seven yields a negative number (-6). Therefore, the subvalence is reported as zero.
 
 \subsection*{Computing Implicit Hydrogen Count}
