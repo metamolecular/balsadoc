@@ -1,10 +1,10 @@
 # Balsa
 
-A fully-specified chemical line notation based on SMILES. For an introduction, see [the blog post](https://depth-first.com/articles/2021/09/22/beyond-smiles/). A [reference implementation](https://github.com/metamolecular/balsa/) is in progress on GitHub. This project was previously hosted on GitHub as [Dialect](https://github.com/rapodaca/dialect/).
+This working paper describes Balsa, a compact molecular line notation based on SMILES. For an introduction, see [the blog post](https://depth-first.com/articles/2021/09/22/beyond-smiles/). A [draft working paper](https://doi.org/10.26434/chemrxiv-2022-01ltp) is available on ChemRxiv. A [reference implementation](https://github.com/metamolecular/balsa/) is in progress on GitHub. This project was previously hosted on GitHub as [Dialect](https://github.com/rapodaca/dialect/).
 
 ## Goals
 
-The purpose of the manuscript is to fully specify Balsa, a language for molecular serialization. Balsa's compact string representation makes it suitable for the storage, retrieval, and manipulation of molecular structures.
+The purpose of the working paper is to fully specify Balsa, a language for molecular serialization. Balsa's compact string representation makes it suitable for the storage, retrieval, and manipulation of molecular structures.
 
 Balsa is grounded in the concept of a *language subset*. A language subset contains some of the features of its parent, but adds none of its own. This means that in principle every feature found in Balsa will also be found in SMILES. The opposite is, however, not true. Existing SMILES implementations should in general be capable of reading all Balsa strings. Balsa readers, however, may not be able to read every SMILES string. As a language subset, Balsa subtracts features from SMILES due to obsolescence, errors in specification, low utility, or ambiguity.
 
