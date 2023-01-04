@@ -10,5 +10,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/metamolecular/balsa/compare/v1...HEAD
+[Unreleased]: https://github.com/metamolecular/balsadoc/compare/v1...HEAD
 [v1]: https://github.com/metamolecular/balsadoc/releases/tag/v1
