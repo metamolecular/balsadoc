@@ -17,7 +17,7 @@ C#C
 C.O
 C/C=C/C
 C\C=C\C
-OC(C)(C)C
+O1C(C)(C)C1
 OC(C)(C(C)C)C
 CC(C(C)C)(O)C(C)(C)C
 C1CC1

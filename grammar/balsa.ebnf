@@ -1,7 +1,7 @@
 String            ::= sequence?
 sequence          ::= atom ( union | branch | gap )*
 union             ::= bond? ( bridge | sequence )
-branch            ::= "(" ( dot | bond )? sequence ")"
+branch            ::= "(" ( dot | bond )? sequence ")" ( union | branch )+
 gap               ::= dot sequence
 atom              ::= star | shortcut | selection | bracket
 bracket           ::= "[" isotope? symbol parity?

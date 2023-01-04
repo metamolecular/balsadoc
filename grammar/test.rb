@@ -25,14 +25,25 @@ end
 
 failed = false
 
-File.readlines('./strings.txt').each do |string|
-    c = Harness::new();
+File.readlines('./pass.txt').each do |string|
+    c = Harness::new()
     result = c.test(string)
 
     if !result.nil?
         failed = true
 
-        puts result
+        puts "#{string} failed, but should have passed"
+    end
+end
+
+File.readlines('./fail.txt').each do |string|
+    c = Harness::new()
+    result = c.test(string)
+
+    if result.nil?
+        failed = true
+        
+        puts "#{string} should have failed, but did not"
     end
 end
 

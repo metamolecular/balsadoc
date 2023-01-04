@@ -734,10 +734,11 @@ bridge ::= nonzero | "%" nonzero digit
 
 As noted previously, the purpose of a bridge is to create a bond without creating a connection within the molecular tree (see: \nameref{molecular-tree}). A bridge will most commonly be used to encode a ring-closure bond, but can be used anywhere within a string. The only requirement is that a bridge must be paired with another bridge having the same index. To prevent overflow, a bridge index may be reused.
 
-An alternative to \ttt{union} within a sequence is the \ttt{branch} non-terminal (\enquote{branch}). Like union, branch joins a parent and child node. Wrapped by opening and closing parenthesis terminals (\enquote{(} and \enquote{)} respectively), branch encodes a sequence that may or may not be bonded to its parent. Bonding occurs if the \ttt{bond} non-terminal is included. Alternatively, the sequence will not be bonded if the \ttt{dot} non-terminal (\enquote{.}) appears. If neither \ttt{bond} nor \ttt{gap} are present, parent and child are connected through an elided bond.
+An alternative to \ttt{union} within a sequence is the \ttt{branch} non-terminal (\enquote{branch}). Like union, branch joins a parent and child node. Wrapped by opening and closing parenthesis terminals (\enquote{(} and \enquote{)} respectively), the first part of \ttt{branch} expects a sequence that may or may not be bonded to its parent. Bonding occurs if the \ttt{bond} non-terminal is included. Alternatively, the sequence will not be bonded if the \ttt{dot} non-terminal (\enquote{.}) appears. If neither \ttt{bond} nor \ttt{gap} are present, parent and child are connected through an elided bond. The second part of \ttt{branch} expects one of either a union or branch. This ensures that strings terminated with a branch, or containing a gap after a branch will be rejected.
 
 \begin{lstlisting}
 branch ::= "(" ( dot | bond )? sequence ")"
+           ( union | branch)+
 \end{lstlisting}
 
 The third option for adding atoms within a sequence is the \ttt{gap} non-terminal (\enquote{gap}). A gap consists of a \ttt{dot} production followed by a \ttt{sequence} production. The \ttt{gap} non-terminal serves the same purpose as it does within a branch: to enable connection within a molecular tree without creating a bonding relationship.
