@@ -740,7 +740,7 @@ An alternative to \ttt{union} within a sequence is the \ttt{branch} non-terminal
 
 \begin{lstlisting}
 branch ::= "(" ( dot | bond )? sequence ")"
-           ( union | branch)+
+           ( union | branch)
 \end{lstlisting}
 
 The third option for adding atoms within a sequence is the \ttt{gap} non-terminal (\enquote{gap}). A gap consists of a \ttt{dot} production followed by a \ttt{sequence} production. The \ttt{gap} non-terminal serves the same purpose as it does within a branch: to enable connection within a molecular tree without creating a bonding relationship.
