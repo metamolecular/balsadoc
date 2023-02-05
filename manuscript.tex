@@ -977,7 +977,7 @@ This process of elimination left just The Chapter as the basis for ProtoSMILES. 
 
 ProtoSMILES defines a fixed set of chemical element symbols that even at the time of publication was partially obsolete~\cite[p.~83]{weininger:2003}. The symbol for element 105 is given as Ha (Hahnium), despite IUPAC's resolution of the naming controversy of the element in favor of the symbol Db (Dubnium) years prior~\cite{sageson:1997}. Balsa therefore disallows the symbol Ha. To maintain compatibility with ProtoSMILES and avoid future changes to Balsa's grammar, elements having atomic number greater than 105 are also excluded.
 
-ProtoSMILES defines a recursive grammar for branching which, perhaps without the knowledge of the author, allows sequentially nested parentheses~\cite[p.~86]{weininger:2003}. Balsa disallows such constructs (e.g., \enquote{*((*))*} and \enquote{*(((*)))*}).
+ProtoSMILES defines a recursive grammar for branching which, perhaps without the knowledge of the author, allows sequentially nested parentheses~\cite[p.~86]{weininger:2003}. Balsa disallows such constructs (e.g., \enquote{*((*))*} and \enquote{*(((*)))*}). Eliminating this kind of purposeless syntax simplifies software implementation. For the same reason, Balsa disallows trailing branches (e.g., \enquote{*(*)}).
 
 ProtoSMILES supports reactions but Balsa does not. Specifically, the greater than symbol (\ttt{$>$}) is not a valid Balsa character. This restriction precludes strings such as \enquote{*$>$$>$*}. Furthermore, Balsa lacks the \enquote{map} attribute, used for atom-atom mapping in reactions, and its accompanying syntax.
 
@@ -1006,6 +1006,7 @@ Balsa provides a few semantic clarifications not fully addressed in ProtoSMILES.
         \hline
         element symbol Ha & yes & no \\
         multiple branching (e.g., \enquote{*((*))*}) & yes & no \\
+        trailing branch (e.g., \enquote{*(*)}) & yes & no \\
         reactions using greater than symbol (\ttt{>}) & yes & no \\
         atomic \enquote{map} attribute & yes & no \\
         extended stereodescriptors (e.g., \enquote{@OH1}) & yes & no \\
